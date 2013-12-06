@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
+<link href="../../css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="../../css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="../../css/swc.css" />
+<link rel="stylesheet" type="text/css" href="../../css/swc-bootstrap.css" />
+<link rel="alternate" type="application/rss+xml" title="The Software Carpentry Blog" href="/feed.xml"/>
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://software-carpentry.org" title="Software Carpentry">
+    <img alt="Software Carpentry banner" src="../../img/software-carpentry-banner.png" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+          <h1>Python Debugging</h1>
+          <p><strong>Based on materials contributed by Anthony Scopatz and Patrick Fuller</strong></p>
+
+<h2>Exercise: What is debugging?</h2>
+
+<p>Before I show you the practice (ahem, <em>art</em>) of debugging, separate out into groups of 2-3 
+people. Follow these steps:</p>
+
+<ol>
+<li> Come up with a definition of debugging.</li>
+<li> Write it down on a strip of paper.</li>
+<li> Give me the strip of paper.</li>
+<li> ???</li>
+<li> Profit.</li>
+</ol>
+
+<p>(Bonus Challenge: Make a new friend!)</p>
+
+<p>Time limit: 5 min.</p>
+
+<h2>Why does debugging matter?</h2>
+
+<p>Unless you&#39;re perfect, you are bound to make errors. Especially early 
+on, expect to spend much more time debugging than actually coding. The process 
+fits the Pareto principle - you&#39;re going to spend ~20% of your time writing 
+~80% of your code, and the other ~80% of your time will be spent screaming 
+obscenities at your computer (I think that&#39;s what the Pareto principle says, 
+anyway). Remember to keep calm, and <strong>LEARN</strong> from your mistakes.</p>
+
+<h2>Debugging 101: exceptions, errors, and tracebacks</h2>
+
+<p>When your code errors, Python will stop and return an <em>exception</em> that attempts 
+to tell you what&#39;s up. There are ~165 exceptions in the Python standard 
+library, and you&#39;ll be seeing many of them very soon. Exceptions to befriend 
+include:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="ne">SyntaxError</span> <span class="c"># You&#39;re probably missing a parenthesis or colon</span>
+<span class="ne">NameError</span>   <span class="c"># There&#39;s probably a variable name typo somewhere</span>
+<span class="ne">TypeError</span>   <span class="c"># You&#39;re doing something with incompatible variable types</span>
+<span class="ne">ValueError</span>  <span class="c"># You&#39;re calling a function with the wrong parameter</span>
+<span class="ne">IOError</span>     <span class="c"># You&#39;re trying to use a file that doesn&#39;t exist</span>
+<span class="ne">IndexError</span>  <span class="c"># You&#39;re trying to reference a list element that doesn&#39;t exist</span>
+<span class="ne">KeyError</span>    <span class="c"># Similar to an IndexError, but for dictionaries</span>
+<span class="ne">Exception</span>   <span class="c"># This means &quot;an error of any type&quot; - hopefully you don&#39;t see it often</span>
+</code></pre></div>
+<p>When code returns an exception, we say that the exception was <em>thrown</em> or
+<em>raised</em>. These exceptions may be <em>handled</em> or <em>caught</em> by the code. Speaking
+of, you can handle exceptions in Python like so:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="k">try</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">0.0</span>
+<span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;Going from zero to hero.&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span>
+</code></pre></div>
+<p>That being said, there are some things you should keep in mind.
+ * Exception handling in your own code should be seen as a last resort. <em>Never</em>
+   use exception handling where another approach would work just as well.
+ * If you have to handle exceptions, be specific in their type. Writing a blanket
+   <code>except Exception</code> line provides a place for unintended bugs to hide.</p>
+
+<p>When an exception is printed, it often comes with something called a
+<em>traceback</em>. This is Python&#39;s attempt to tell you where the code errored. It
+will look like gibberish for a while, but that impression will go away with time.</p>
+
+<p>So, when your code errors, Python tells you 1. why it errored and 2. where it
+errored. &quot;Isn&#39;t that enough to debug?&quot;, you might ask. Well, yeah. It is. But,
+if you debug only by running your code, you&#39;re going to be spending a lot more
+time in the screaming-obscenities-at-your-computer portion of coding. Every tool
+discussed below doesn&#39;t add much in terms of functionality (they&#39;re still just
+pointing out errors), but they all help in decreasing debugging time.</p>
+
+<h2>Linting: catching the stupid errors</h2>
+
+<p>As I said before, you can debug by simply attempting to run your code. This,
+however, is very annoying. First off, the code will always stop at the first 
+exception. This means that, if you have ten errors, you&#39;ll have to run the code 
+ten times to find all of them. Now, imagine that this is long-running code.
+Imagine waiting five minutes for your code to run, only to discover it breaks
+because of a typo. Doesn&#39;t that sound terrible?</p>
+
+<p>Enter linting. &quot;Linting&quot; is the process of discovering errors in a code (typically 
+typos and syntax errors --- i.e., the dumb stuff) before the code is ever run or 
+compiled. In Python, this can be accomplished through using the <a href="http://pypi.python.org/pypi/pyflakes/">pyflakes</a> 
+library. It works by statically analyzing your code without running it. This 
+means that it can find multiple errors at once, rather than stopping at the 
+first exception.</p>
+
+<p>You can run pyflakes on your code by typing</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">pyflakes my_code.py
+</code></pre></div>
+<p>We can take this a step further with integrated development environments, or
+<em>IDEs</em>. IDEs are (basically) glorified text editors that dynamically lint,
+showing you typos as you write your code. You will find that coders generally
+have strong opinions on the use of IDEs, either positive or negative. Regardless,
+if you want to play around with one, I recommend <a href="http://www.eclipse.org/">Eclipse</a> 
+with the <a href="http://pydev.org/">PyDev</a> plugin.</p>
+
+<h2>Coding standards: the details matter!</h2>
+
+<blockquote>
+<p>The one skill that separates bad programmers from good programmers is attention to detail. </p>
+
+<p>Zed Shaw, <em>Learn Python the Hard Way</em></p>
+</blockquote>
+
+<p>In a written natural language, there are many ways to express the same idea. To 
+make the consumption of information easier, people define style guides to enforce 
+particularly effective ways of writing. This is even more true in coding; 
+consistent style choices make scripts much easier to read. They become absolutely 
+essential as projects become large (&gt;1 person).</p>
+
+<p>Some programming languages (*cough* <em>Java</em>) have multiple competing standards, 
+and it&#39;s easy to imagine how messy this can get. Luckily, Python doesn&#39;t have 
+this issue. The official standard, <a href="http://www.python.org/dev/peps/pep-0008/">PEP8</a>, 
+is used everywhere. Unless you plan on hiding all the code you write from the 
+outside world, you should learn it.</p>
+
+<p>To help out coders, there are tools to test for compliance. The aptly named 
+<code>pep8</code> library shows you where your code deviates from the PEP8 standard, and
+<code>autopep8</code> goes a step further by trying to fix all of your errors for you.
+These are both run from the shell, as</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">pep8 my_code.py
+autopep8 my_code.py &gt; my_new_code.py
+</code></pre></div>
+<p>These libraries won&#39;t always pick up everything, sadly. Furthermore, due to
+the desire to maintain backward compatibility, there is some wiggle room in PEP8 
+(see <a href="www.python.org/doc/essays/ppt/regrets/PythonRegrets.ppt">this powerpoint</a> 
+of Python regrets, made by the creator of the language). Here are some additional
+rules to remember:</p>
+
+<p><strong>PEP8 conventions missed by the <code>pep8</code> checker</strong></p>
+
+<ul>
+<li>Variables and functions should be named  in <code>snake_case</code>. No capital letters.
+Classes are named in <code>UpperCamelCase</code>.</li>
+<li>Multiline comments use <code>&quot;&quot;&quot;</code>, not <code>&#39;&#39;&#39;</code>.</li>
+<li>Private methods and variables should be prefixed with an underscore, ie. 
+<code>_my_private_method()</code></li>
+</ul>
+
+<p><strong>Special rules outside of PEP8</strong></p>
+
+<ul>
+<li><em>Never</em> use tabs. Ever.</li>
+<li>Use list comprehensions over <code>map()</code>, <code>reduce()</code>, and <code>filter()</code>.</li>
+<li>Avoid iterating through lists by index whenever possible.</li>
+<li>Lambda functions should not be saved to a variable.</li>
+</ul>
+
+<p>These rules might seem random (probably because they are), but, trust me: they
+make collaborative coding <em>so much</em> easier.</p>
+
+<h2>Debuggers: for the deep-rooted errors</h2>
+
+<p>Linting will only catch the really obvious errors. For more complex issues,
+(ie. bugs), you&#39;re going to want to follow the code&#39;s logic line by line. One
+lazy way to do this is to put <code>print</code> statements everywhere, which allows you
+to view variables over time. However, this gets messy quickly, and you lose
+control of what variables you can see once you start executing.</p>
+
+<p>This is where the Python DeBugger, or <em>pdb</em>, comes into play. With it, you can 
+step through your code and watch as variables are changed.</p>
+
+<p>All you have to do to use this is import the <code>pdb</code> module and call the 
+<code>set_trace()</code> method.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pdb</span>
+
+<span class="c"># [ ... ]</span>
+<span class="c"># Your code here</span>
+<span class="c"># [ ... ]</span>
+
+<span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+</code></pre></div>
+<p>Now, when you run the code, it will stop at whatever line you put <code>set_trace()</code>.
+You&#39;ll be prompted to give a command. Some common commands include:</p>
+
+<ul>
+<li><code>continue</code> continues on to the next time a <code>set_trace()</code> line is hit</li>
+<li><code>print \*variable\*</code> prints the current value of a specified variable</li>
+<li><code>list</code> shows the source code around the <code>set_trace()</code> line</li>
+<li><code>args</code> prints the values of all the arguments in the current function</li>
+</ul>
+
+<p>There are a lot more options, which can be found <a href="http://docs.python.org/2/library/pdb.html">here</a>, 
+but these few should be enough to get you running with pdb.</p>
+
+<h2>Profiling: making code fast</h2>
+
+<p>So, you&#39;ve found your errors, those deep-rooted bugs, and even standardized
+your code to conform to PEP8. But, for some reason, it&#39;s still really slow.
+What can we do about this?</p>
+
+<p>The first idea you might have is to time your code. Analogous to the <code>print</code>
+statement debugging above, you could write some logic to print run times at
+various points in your script.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="c"># run your code</span>
+<span class="k">print</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+</code></pre></div>
+<p>You can also time your entire script with:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">time python my_code.py
+</code></pre></div>
+<p>While these both work, they&#39;re either too messy or not detailed enough. What we
+really want is a breakdown of how long the computer spends running each part
+of our code.</p>
+
+<p><em>Profilers</em> provide a way to do just this. With Python, run your script in a
+shell with this command</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">python -m cProfile -s time my_code.py
+</code></pre></div>
+<p>This returns the amount of functions called in the execution, along with a
+breakdown of the time each function took. The <code>-s time</code> part sorts the output
+by the time taken (which is usually what you care about). A sample output looks 
+like:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">2530004 function calls in 0.789 seconds
+Ordered by: internal time
+
+ ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+1980000    0.253    0.000    0.253    0.000 my_code.py:23(&amp;lt;genexpr&amp;gt;)
+  10000    0.190    0.000    0.780    0.000 my_code.py:16(evolve)
+ 220000    0.182    0.000    0.436    0.000 {sum}
+ 270000    0.150    0.000    0.150    0.000 my_code.py:28(neighbors)
+      1    0.009    0.009    0.789    0.789 my_code.py:9(my_func)
+  50000    0.004    0.000    0.004    0.000 {method &#39;add&#39; of &#39;set&#39; objects}
+      1    0.000    0.000    0.000    0.000 {range}
+</code></pre></div>
+<p>With this information, you can go back into your code and adjust the logic to 
+improve the speed bottlenecks.</p>
+
+<h2>Segfaults: the scourge of C</h2>
+
+<p>Segmentation faults, abbreviated <em>segfaults</em>, are the worst debug errors in existence. 
+Segfaults occur when the program tries to access a part of memory that it 
+expects to be able to get to, and for whatever reason it is not available.
+Because of this, segfaults only occur at runtime, so many tools won&#39;t even
+catch it. To make it worse, a code with a segfault will return the most useless
+error in the history of errors:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">Segmentation fault
+</code></pre></div>
+<p>There&#39;s no traceback, and no explanation at all. Nothing.</p>
+
+<p>Luckily, Python (generally) handles the memory issues that could cause a
+segfault. Unluckily, many Python scripts interface with lower-level libraries;
+these can segfault for, like, no reason.</p>
+
+<p>If you happen upon a segfault in Python, you have two courses of action. If the
+segfault is rare and affects a nonvital part of the code, then you can wrap it
+in a standard Python exception and handle it in a regular manner. For this, the
+<a href="https://github.com/haypo/faulthandler/wiki/">faulthandler</a> library is useful.
+If, however, you absolutely need the function, you&#39;re going to have to dive
+into the C code and fix it yourself.</p>
+
+<p>The tool you&#39;ll need to use is <a href="http://valgrind.org/">valgrind</a>, which is a
+debugger + profiler + memory leak checker for compiled C code. It&#39;s so important
+in C that tutorials in the language often include it within the first few
+lessons. </p>
+
+<p>To use it, first compile the code of interest</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">g++ myCode.cc -o myCode
+</code></pre></div>
+<p>Then, run the compiled code through valgrind</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">valgrind ./myCode
+</code></pre></div>
+<p>Valgrind has a lot of features, each of which can be toggled in the command-line
+call, but that&#39;s beyond the scope of this tutorial. Keep in mind that these
+things exist, and, if you ever find yourself reading through some C, do yourself
+a favor and go through a tutorial on all of this. I recommend
+<a href="http://c.learncodethehardway.org/book/">Learn C the Hard Way</a>,
+but feel free to use whatever works.</p>
+
+<h2>In conclusion</h2>
+
+<p>If you&#39;re new to coding, your head&#39;s probably already spinning with entirely
+too much new information. That&#39;s okay. Remember that everything in this
+tutorial is supplemental in nature; learning how to code is much more important
+than knowing the tools that can help you code faster. However, keep in mind
+that these tools all exist, and make it a goal to eventually come back here and
+re-learn them with a clear mind.</p>
+
+<p>If you&#39;re an experienced coder, these tools are exactly what you need to up
+your game. Debuggers, profilers, and linters all save you valuable time, and
+the PEP8 checker will really help in collaborative projects. Get used to them,
+and the time investment will pay off.</p>
+
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="https://www.facebook.com/SoftwareCarpentry">Facebook</a>
+  <a class="label swc-blue-bg" href="https://plus.google.com/u/0/114244759874490019250/posts">Google+</a>
+  <a class="label swc-blue-bg" href="https://twitter.com/swcarpentry">Twitter</a>
+  <a class="label swc-blue-bg" href="https://github.com/swcarpentry">GitHub</a>
+  <a class="label swc-blue-bg" href="http://software-carpentry.org/feed.xml">RSS</a>
+  <a class="label swc-blue-bg" href="../../license.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:info@software-carpentry.org?subject=bug%20in%20lessons/thw-python-debugging/tutorial.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../js/jquery-1.9.1.min.js"></script>
+<script src="../../js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

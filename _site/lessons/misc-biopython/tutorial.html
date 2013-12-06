@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
+<link href="../../css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="../../css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="../../css/swc.css" />
+<link rel="stylesheet" type="text/css" href="../../css/swc-bootstrap.css" />
+<link rel="alternate" type="application/rss+xml" title="The Software Carpentry Blog" href="/feed.xml"/>
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://software-carpentry.org" title="Software Carpentry">
+    <img alt="Software Carpentry banner" src="../../img/software-carpentry-banner.png" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+          <h1>How to Program If You Must</h1>
+          <p>If a bioinformatic task is relatively common, it is likely that <strong>someone else has written software to do it already</strong>.</p>
+
+<p>Format conversions, paired-read merging, quality trimming, recruitment to references, diploid SNP calling, haploid
+re-sequencing--these are all problems that can be solved by finding out what software purports to do the job, 
+figuring out how to install it, getting the data into the right input formats and getting the results out of 
+whatever formats the tools write to.  </p>
+
+<p>Depending on the complexity of the task and the ease-of-use and scope of the existing alternatives, it could be 
+easier to adapt an existing software library or it could be easier to write the code to do it yourself.  </p>
+
+<p>This section describes programming using the Biopython libraries when you must.
+In general you will have your own data, you will need to change its format and do stuff to it, 
+you will get some reference data, perform some comparison operation, and then perform
+operations on the results of the comparison in view of your hypotheses.</p>
+
+<p>Biopython affords high-level access to subroutines that access the biological sequence data types, databases, and bread-and-butter tools.</p>
+
+<h3>Optimizing time</h3>
+
+<p>Solving any particular data manipulation problem takes a certain amount of time, time that should include the time to 
+fix the mistakes and confirm that your code is really is doing what you think it is.   It is dramatically easier to write a program that
+you will use once and then throw away than to write a program that is useful to you again and again.  Ask: do you really
+want to solve a particular (easy) format-conversion problem six times, once for each new collaboration and each new dataset?<br>
+If you invest effort in identifying what you need and what parts you will use again and again, you can forget the details of how you solved
+this (boring) problem in the first place and direct your time to more interesting things.</p>
+
+<h3>An anecdote: using python to get and plot data from a web interface</h3>
+
+<p>One day, a colleague of mine showed me that the MG-RAST website had an interface that would deliver a bundle of data about a dataset in response to an HTTP request.  Specifically, the request 
+http://api.metagenomics.anl.gov/metagenome_statistics/mgm4440613.3?verbosity=full
+has tables of numbers representing the length distribution, GC-content, and high-level summaries of the taxonomic annotations of an NGS dataset.  (The data bundle may not display conveniently in all browsers, but there&#39;s a lot of good data in there, encoded in JSON format. http://en.wikipedia.org/wiki/JSON 
+Fortunately, there is a python module to painlessly parse JSON into a python dict of dict.
+The script <code>metagenome_statistics-example.py</code> contains example code that retrieves data from the website, gets some of the data out of the JSON structure, and plots it.  Python code that solves the sub-problems (retrieving data via HTTP, getting data out of JSON objects, and plotting) has already been written, so I spend my time invoking and debugging calls to these subroutines instead of finding out how to write a HTTP client or a JSON parser.  </p>
+
+<h2>Biopython</h2>
+
+<p>Biopython has a large collection of subroutines that do potentially useful things with biological data.
+Biopython is described in <em>Biopython: freely available Python tools for computational molecular biology and bioinformatics.</em> Bioinformatics. 2009 Jun 1;25(11):1422-3. doi: 10.1093/bioinformatics/btp163. http://www.ncbi.nlm.nih.gov/pubmed/19304878?dopt=Abstract
+and has a detailed <em>Biopython Cookbook and Tutorial</em>
+http://biopython.org/DIST/docs/tutorial/Tutorial.html describing many of the things that it does.  </p>
+
+<p>For these examples to work, you need to be able to run
+<code>python
+from Bio import SeqIO
+</code>
+from your python environment and not get an error.   Biopython is included with the anaconda python distribution; for the Canopy python distribution it is available as a module. </p>
+
+<p>We will show 
++ an example of how to get data from NCBI using EFETCH
++ examples of how Biopython goes through FASTA, FASTQ, and GENBANK data and where the data is inside of the resulting objects 
++ we will give some exercises for doing things to sequences one at a time, like retrieving sequences with a given id or automatically selecting one gene from an annotated genome.</p>
+
+<h3>Get reference data--NCBI&#39;s EUTILS</h3>
+
+<p>Sequence comparison is at the heart of bioinformatics; to do useful comparisons, you need data (sequences) against which to compare your new, exciting sequences.  NCBI provides an interface to allow automated download of various (sequence) data products using HTTP GET requests.</p>
+
+<p>The documentation for this interface, called EUTILS, is here:
+http://www.ncbi.nlm.nih.gov/books/NBK25499/</p>
+
+<p>Pretty much anything you can do at an NCBI web site or search engine can be done using EUTILS -- retrieving pubmed abstracts, searching SRA for NGS datasets, searching for and retrieving reference genomes.  Here we will describe retrieving sequence data (protein sequences, genome sequences, or genomes with annotations) using <code>efetch</code>.  Other routines are described in Eutils.md.</p>
+
+<p>Biopython has subroutines that take EFETCH&#39;s options and parameters and return python objects.
+This saves us from having to write code that directly talks to NCBI&#39;s EFETCH API, freeing us to spend our time elsewhere.<br>
+We just need to find out how to use these subroutines.</p>
+
+<p><code>retrievegbk.py</code> contains an example of using the <code>Entrez.efetch</code>  biopython method to retrieve genbank records by specifying their accession number.  </p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="sd">&#39;&#39;&#39;This is an example of Entrez.efetch. http://www.ncbi.nlm.nih.gov/books/NBK25499/#_chapter4_EFetch_ &#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">Entrez</span>
+
+<span class="n">accessionno</span> <span class="o">=</span> <span class="s">&quot;NC_012920&quot;</span>   <span class="c"># This is the human mitochondrion reference sequence </span>
+<span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s">&quot;swc@example.com        #  Always tell NCBI who you are.  And fix the SytnaxError.</span>
+<span class="n">Entrez</span><span class="o">.</span><span class="n">tool</span> <span class="o">=</span> <span class="s">&quot;SoftwareCarpentryBootcamp&quot;</span>
+<span class="k">assert</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">!=</span> <span class="bp">None</span>     <span class="c"># Check that you told NCBI who you are before continuing</span>
+
+<span class="c"># Entrez.efetch is the subroutine; </span>
+<span class="c"># db, id, rettype, and retmode are parameters of EFETCH</span>
+<span class="c"># and read() is the method that gives us the output as one big string.</span>
+
+<span class="n">genbankdata</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s">&quot;nucleotide&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">accessionno</span><span class="p">,</span> <span class="n">rettype</span><span class="o">=</span><span class="s">&quot;gb&quot;</span><span class="p">,</span> <span class="n">retmode</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="n">genbankdata</span>
+
+<span class="c"># Let&#39;s write this to a file</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">.gbk&quot;</span> <span class="o">%</span> <span class="n">accessionno</span>
+<span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">genbankdata</span><span class="p">)</span>
+</code></pre></div>
+<p>Note that all we did was get the data and dump it to a file here; we will go through the data and look at what is inside later.  Note: this code snipped (and <code>retreivegbk.py</code>) contain a syntax error--fix the syntax error and give your local version of the script your email address.  You want to tell NCBI who you are as a matter of politeness (they are giving you data for free).  In case your script goes horribly wrong, and you mistakenly launch a denial-of-service attack against NCBI, NCBI might send you an email letting you know.  The guidelines for automated download of data from NCBI include the guidance</p>
+
+<blockquote>
+<p>In order not to overload the E-utility servers, NCBI recommends that users post no more than three URL requests per second and limit large jobs to either weekends or between 9:00 PM and 5:00 AM Eastern time during weekdays. </p>
+</blockquote>
+
+<p>Easy Exercise:
+Use <code>retreivegbk.py</code> to get NC_001422, the genome of Phi-x174, in genbank format.  We will use this below. </p>
+
+<p>Exercise:
+<code>ladyslipperITSaccessionnumbers.txt</code> contains 94 accession numbers for the ITS ribosomal marker sequences of certain lady slipper orchids.
+Use the <code>retrievegbk()</code> subroutine in <code>retrievegbk.py</code> to request to download all 94 sequences.<br>
+Once you have the sequences, you can convert them to FASTA, concatenate the FASTA, and run a multiple-sequence-alignment program.  </p>
+
+<h3>Iterating through data records</h3>
+
+<p>Biopython provides a variety of methods for stepping through data sources one record at a time.  There is variety in the places we
+can get the data from, variety in the data types, and variety in the procedures used to access the data.  </p>
+
+<ul>
+<li><p>Data sources can be web interfaces, filenames, or file handles.  </p></li>
+<li><p>Data types can include amino acid sequences, short-read nucleic acid sequences with or without qualities, draft genomes in hundreds of contigs,  or complete genomes with gene coordinates, translations, and additional notes about how the genes were identified.    These are normalized into the <code>SeqRecord</code> data type.</p></li>
+<li><p>The access procedures include opening a data source and loading it all into memory at once, as either a list or a dict, or reading a data source one record at a time. </p></li>
+</ul>
+
+<h4>Parsing</h4>
+
+<p>We can open <code>data/tiny.fasta</code> using <code>SeqIO.parse()</code> 
+As a troubleshooting mechanism, python&#39;s <code>dir</code> method will list the methods and attributes that are defined for this object:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SeqIO</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&quot;data/tiny.fasta&quot;</span><span class="p">,</span> <span class="s">&quot;fasta&quot;</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">generator</span><span class="p">)</span>
+<span class="nb">dir</span><span class="p">(</span><span class="n">generator</span><span class="p">)</span>
+</code></pre></div>
+<p>We find that <code>Bio.SeqIO.parse</code> method returns a <em>generator</em>, an python object with methods to let us access the data.  We can put this generator in a <code>for</code> loop and access each record one at a time, or we can call <code>list(generator)</code> to load all the records into memory at once, or we can call <code>SeqIO.to_dict(generator)</code> to load all the records into a dict at once.     (If we don&#39;t have enough memory to load all the data at once--which will often be the case with shotgun data--we need to find ways to write programs that don&#39;t require all the data in memory.)  Or we can use <code>record = generator.next()</code> to step through the records until we get a <code>StopIteration</code>.</p>
+
+<p><code>SeqIO.parse</code> takes the format as a mandatory second parameter.  fasta, fastq, genbank, and embl are among the supported formats.  </p>
+
+<p>Using <code>next()</code> just once will give us the first <code>SeqRecord</code>, so let&#39;s look at it:
+<code>python
+firstrecord = SeqIO.parse(&quot;data/tiny.fasta&quot;, &quot;fasta&quot;).next()
+print type(firstrecord)
+print dir(firstrecord)
+</code>
+We can print each of these, and find out whether each is a method or an attribute.
+The attributes, <code>firstrecord.id</code> and <code>firstrecord.seq</code> contain the data we are looking for.
+Other attributes such as <code>firstrecord.annotations</code> and <code>firstrecord.features</code> are only populated for input data types richer than fasta.</p>
+
+<p>To review, <code>Bio.SeqIO.parse()</code> returns a generator.  Looping through this will produce <code>SeqRecord</code> objects, one for each sequence or contig.  These have <code>Seq</code> and <code>SeqFeature</code> objects inside of them.  </p>
+
+<p>We can loop through all the records, one at a time, using <code>for</code>:
+<code>python
+generator = SeqIO.parse(&quot;data/tiny.fasta&quot;, &quot;fasta&quot;)
+for seqrecord in generator:
+    print seqrecord
+</code></p>
+
+<p>This print statement gives us a human-readable summary of the contents of the seqrecord, but not necessarily the whole thing. </p>
+
+<p>While we might expect <code>seqrecord.seq</code> to return a string, it returns an object of the type <code>Bio.Seq.Seq</code>.  Strings have 
+methods like <code>find()</code> and <code>upper()</code>.  <code>Seq</code> objects additionally have methods like <code>reverse_complement()</code> and <code>translate()</code>.
+In some cases, you can use <code>Seq</code> objects in place of strings, in other places an explicit format conversion using <code>str()</code> is necessary.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="k">print</span> <span class="s">&quot;This is a STRING&quot;</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&quot;This is a STRING&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</code></pre></div>
+<p><code>Seq</code> objects have these methods and others that perform biological sequence-manipulation tasks:
+<code>python
+print firstrecord.seq.upper()
+print firstrecord.seq.lower()
+print firstrecord.seq.reverse_complement()
+print firstrecord.seq.translate()
+</code>
+So <code>Seq</code> objects know what their sequence is and they know how to translate themselves.  I can iterate over the sequences in the file and print the sequence and the reverse complement like this:
+<code>python
+generator = SeqIO.parse(&quot;data/tiny.fasta&quot;, &quot;fasta&quot;)
+for seqrecord in generator:
+    print seqrecord.id, len(seqrecord.seq)
+    print str(seqrecord.seq)
+    print str(seqrecord.seq.reverse_complement())
+</code>
+Finally, you can get reminders of the recipes for accessing data and descriptions of how to use SeqIO from the manual page on <code>SeqIO</code>:
+<code>python
+help(SeqIO)
+</code></p>
+
+<p>Exercise:<br>
+Modify the existing program <code>exercise-reversecomplement.py</code> to output fasta whose sequences have been reverse-complemented.  </p>
+
+<h4>Fasta sequence parsing</h4>
+
+<p>The minimal data type for sequence data, this format includes only a text record description and a (possibly long) sequence.  Nucleic acid sequences, partially-ambiguous nucleic acid sequences, and amino acid sequences can all be encoded in this bare-bones format.  </p>
+
+<p><code>SeqRecord</code> data types have the attributes
++ <code>.name</code>  which is the <strong>fasta id</strong> -- all the text before the first whitespace on the header line
++ <code>.description</code> the entire header line, including the fasta id and anything after the first whitespace
++ <code>.seq</code>  the sequence, as a <code>SeqIO.Seq</code> object</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SeqIO</span>
+<span class="k">for</span> <span class="n">seqrecord</span> <span class="ow">in</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&quot;tiny.fasta&quot;</span><span class="p">,</span> <span class="s">&quot;fasta&quot;</span><span class="p">):</span>
+     <span class="k">print</span> <span class="n">seqrecord</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">seqrecord</span><span class="o">.</span><span class="n">seq</span>
+</code></pre></div>
+<p>Exercise:<br>
+Modify the existing program <code>exercise-allsixframes.py</code> to read in nucleic acid FASTA and output six sequences, representing the translation of each sequence in all six reading frames.  Hint:  Slicing works on <code>Seq</code> objects like it does on strings, so if <code>seq</code> is one of the <code>seqrecord.seq</code> objects, 
+<code>seq[1:]</code> and <code>seq[2:]</code> the sequence with the first character chopped off, and the sequence with the first two characters chopped off, respectively.<br>
+Hint: <code>Seq</code> objects also have  <code>seq.reverse_complement()</code> and <code>seq.translate()</code> methods that return <code>Seq</code> objects with the reverse complement and translation, defaulting to the standard prokaryotic code.</p>
+
+<p>Hard exercise: 
+Modify the program <code>skeleton.py</code> to count the number of sequences and the number of bases of each type in a fasta file.  (Hint: Decide what type of data structure you want to use to store the base counts before you begin.  What subroutines do you want?)</p>
+
+<h4>Fastq sequence parsing</h4>
+
+<p>FASTQ is the de-facto standard data format for the output of modern high-throughput sequencing machines.
+In addition to sequence ID and header, this format includes a quality symbol for each base.</p>
+
+<p>Fastq can be parsed using exactly the same <code>SeqIO.parse()</code> method, just with <code>fastq</code> instead of <code>fasta</code> as the format parameter.
+The sequence is in the <code>seq</code> attribute and the quality scores (as a list of ints) is in the <code>letter_annotations[&quot;phred_quality&quot;]</code> attribute.    This snippet just loops through a small example fastq file and prints the data fields:
+<code>python
+from Bio import SeqIO
+generator = SeqIO.parse(&quot;data/tiny.fastq&quot;, &quot;fastq&quot;)
+for sequence in generator:
+     print sequence.id
+     print sequence.description
+     print sequence.seq
+     print sequence.letter_annotations[&quot;phred_quality&quot;]
+</code>
+This snippet will shorten the sequences to include only the first 30 base pairs of each read:
+<code>python
+from Bio import SeqIO
+generator = SeqIO.parse(&quot;data/tiny.fastq&quot;, &quot;fastq&quot;)
+for sequence in generator:
+     shortsequence = sequence[0:30]
+     sys.stdout.write(shortsequence.format(&quot;fastq&quot;))
+</code></p>
+
+<p>Exercise:<br>
+<code>exercise-b-trim.py</code> contains a fastq parser.  Write a subroutine to perform &quot;B-trimming&quot; -- removing bases that have very low quality scores from the end of the reads.  You will need to determine how many bases at the end of the read have quality scores of 2 or below and remove them.   The exercise script has the input and the output in place.</p>
+
+<h4>Genbank sequence parsing</h4>
+
+<p>Unlike FASTA and FASTQ, the Genbank format has many optional fields, and the optional fields may be of variable lengths.<br>
+Consequently, the <code>SeqRecord</code> data structures created by Biopython&#39;s genbank parser have more fields defined, including variable-length data types for things like gene annotations.</p>
+
+<p>Using <code>NC_001422.1.gbk</code> as an example, let us examine the data structures that we get from parsing it.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SeqIO</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&quot;NC_001422.gbk&quot;</span><span class="p">,</span> <span class="s">&quot;genbank&quot;</span><span class="p">)</span>
+<span class="n">gbrecord</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>  <span class="c"># This grabs the first record.</span>
+</code></pre></div>
+<p>Now let&#39;s look it over:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="nb">type</span><span class="p">(</span><span class="n">gbrecord</span><span class="p">)</span>
+    <span class="n">Bio</span><span class="o">.</span><span class="n">SeqRecord</span><span class="o">.</span><span class="n">SeqRecord</span>
+<span class="nb">dir</span><span class="p">(</span><span class="n">gbrecord</span><span class="p">)</span> 
+   <span class="o">...</span>
+   <span class="s">&#39;annotations&#39;</span><span class="p">,</span>
+   <span class="s">&#39;dbxrefs&#39;</span><span class="p">,</span>
+   <span class="s">&#39;description&#39;</span><span class="p">,</span>
+   <span class="s">&#39;features&#39;</span><span class="p">,</span>
+   <span class="s">&#39;format&#39;</span><span class="p">,</span>
+   <span class="s">&#39;id&#39;</span><span class="p">,</span>
+   <span class="s">&#39;letter_annotations&#39;</span><span class="p">,</span>
+   <span class="s">&#39;lower&#39;</span><span class="p">,</span>
+   <span class="s">&#39;name&#39;</span><span class="p">,</span>
+   <span class="s">&#39;reverse_complement&#39;</span><span class="p">,</span>
+   <span class="s">&#39;seq&#39;</span><span class="p">,</span>
+   <span class="s">&#39;upper&#39;</span><span class="p">]</span> 
+</code></pre></div>
+<p>Of these, the attributes <code>id</code> <code>name</code> and <code>description</code> are top-level attributes which describe each sequence (contig).  These are accessed by <code>gbrecord.name</code> <code>gbrecord.id</code> and <code>gbrecord.description</code>. <code>grecord.seq</code> contains the sequence as a <code>Seq</code> object. 
+<code>gbrecord.annotations</code> is a <em>dict</em> containing additional details (submitters, date, organism taxonomy) for the sequence as a whole.<br>
+<code>gbrecord.features</code> is a <em>list</em> of <code>SeqFeature</code> objects, if provided, that include the genes, protein coding and RNAs, that the creator of the genbank record have decided to include.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="n">gbrecord</span><span class="o">.</span><span class="n">features</span>
+</code></pre></div>
+<p>The first item in this list is a <code>SeqFeature</code> object:
+<code>python
+type(gbrecord.features[0])
+   Bio.SeqFeature.SeqFeature
+</code></p>
+
+<p>This is a list, so we can iterate through it:
+<code>python
+for i in gbrecord.features:
+    print i
+</code>
+This shows us that the information is there -- looping through all the features of the gbrecord gives us access to everything except the top-level <code>seq</code> and top-level <code>annotations</code>, for which there is only one per SeqRecord.  </p>
+
+<p>The <code>SeqFeature</code> data type has attributes that include  <code>id</code> <code>location</code> and <code>strand</code>.  The <code>type</code> attribute encodes whether the feature represents a gene, tRNA, RNA, or other types, and the available data will usually depend on the value of type.  (RNAs do not have translations; some details are included under &quot;gene&quot; and others under the corresponding &quot;CDS&quot;.  A final attribute of <code>gbrecord.features</code> is <code>qualifiers</code> -- a <em>dict</em> of <em>list</em>s of additional annotation fields.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gbrecord</span><span class="o">.</span><span class="n">features</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s">&quot;CDS&quot;</span> <span class="p">:</span>
+        <span class="k">print</span> <span class="n">i</span><span class="o">.</span><span class="n">qualifiers</span>
+</code></pre></div>
+<p><code>gbrecord.features[2]</code> is the first protein-coding annotation &quot;CDS&quot;.  Examining it, we see that its <code>qualifiers</code> attribute has most of the good stuff:
+<code>python
+firstcdsfeature = gbrecord.features[2]
+print firstcdsfeature
+print firstcdsfeature.qualifiers
+print firstcdsfeature.qualifiers.keys()
+    [&#39;function&#39;, &#39;locus_tag&#39;, &#39;codon_start&#39;, &#39;product&#39;, &#39;transl_table&#39;, &#39;note&#39;, &#39;db_xref&#39;, &#39;translation&#39;, &#39;gene&#39;, &#39;protein_id&#39;]
+</code>
+We can output a table of all the CDS features, then, by looping over all the features, testing for CDS, and printing the fields we like:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gbrecord</span><span class="o">.</span><span class="n">features</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s">&quot;CDS&quot;</span> <span class="p">:</span>
+        <span class="k">print</span> <span class="n">i</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s">&quot;locus_tag&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s">&quot;protein_id&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s">&quot;gene&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>  <span class="n">i</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s">&quot;translation&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> 
+</code></pre></div>
+<p>Oops.  This doesn&#39;t work. This is because not all the CDS records have <code>qualifiers[&quot;gene&quot;]</code> defined, so python raises a KeyError when I try to access qualifiers[&quot;gene&quot;] for the feature that doesn&#39;t have the key &quot;gene&quot;.  We can correct this problem by putting the line that tries to access <code>qualifiers[&quot;gene&quot;]</code> inside of a <code>try... except</code> conditional.  This lets us fill it in with a default value if &quot;gene&quot; isn&#39;t defined.
+<code>python
+for i in gbrecord.features:
+    if i.type == &quot;CDS&quot; :
+        try: 
+            gene = i.qualifiers[&quot;gene&quot;]
+        except KeyError:
+            gene = &quot;-&quot;  
+        print i.qualifiers[&quot;locus_tag&quot;], i.qualifiers[&quot;protein_id&quot;] , gene, i.qualifiers[&quot;translation&quot;]
+</code>
+But the data fields have brackets around them.  Why is that?  The data is being returned as lists, so I can get to the data by asking for the first element of each list.  Remember python indexes from zero, so the first element of a list is accessed using the index <code>[0]</code>: </p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gbrecord</span><span class="o">.</span><span class="n">features</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s">&quot;CDS&quot;</span> <span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="n">gene</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s">&quot;gene&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">gene</span> <span class="o">=</span> <span class="s">&quot;-&quot;</span>  
+        <span class="k">print</span> <span class="n">i</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s">&quot;locus_tag&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s">&quot;protein_id&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="n">gene</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s">&quot;translation&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+<p>Exercise: 
+Parse <code>NC_001422.1.gbk</code> and generate an amino acid fasta file containing the translations of all the coding sequences.  Hint: What field do you want to use for the FASTA ID?  Do you want to put anything else in the fasta description line?   Put the results in <code>NC_001422.1.faa</code> </p>
+
+<p>Hard exercise: 
+Modify the program <code>skeleton.py</code> to generate a table of sequence id, sequence length, and the value of <code>.annotations[&#39;taxonomy&#39;]</code> for all the sequences in a genbank-formatted file specified as an argument on the command line.   Run this to generate a summary table of your lady slipper orchid sequences.</p>
+
+<h3>High-throughput data--getting it</h3>
+
+<p>High-throughput sequencing datasets range in size from a few megabytes to a few hundreds of gigabytes in size.<br>
+Some institutions make raw sequence data available by FTP, but the sequence archive is the largest warehouse of raw sequence data.</p>
+
+<p>The NCBI offers a guide to downloading data here http://www.ncbi.nlm.nih.gov/books/NBK47540/
+which includes links to downloading the <em>SRA toolkit</em>. 
+Linux:  http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=std
+Mac and Windows precompiled binaries: http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software</p>
+
+<p>The sequence read archive maintains its own formats, and its own library of programs to get data out of the SRA format.  The options for the utilities (and the formats themselves) change from time to time, so it is helpful to update update your copy of the SRA toolkit a few times a year.</p>
+
+<p>To illustrate getting short-read sequencing data form SRA, let&#39;s get an Illumina sequencing dataset for with the PhiX control genome described at http://www.ncbi.nlm.nih.gov/sra/SRX017204 .  The SRR accession number is SRR036919, and it&#39;s a 1x45 bp sequencing run.</p>
+
+<p>We can download the SRA-formatted dataset from here 
+wget ftp://ftp.ncbi.nih.gov/sra/sra-instant/reads/ByRun/litesra/SRR/SRR036/SRR036919/SRR036919.sra 
+This is only a 300 Mbyte download.  You can expect NGS datasets (particularly shotgun and metatranscriptomic datasets) to be larger.<br>
+<code>fastq-dump</code> is the program in the SRA tools that will extract the data form sra format to fastq:
+<code>
+fastq-dump SRR036919.sra
+</code>
+will extract the sequence data from SRR036919.sra and create SRR036919.fastq</p>
+
+<h3>What is it good for?</h3>
+
+<p>Scripts using the shell, python, and the standard unix can do things that <em>you can&#39;t do by hand</em> and they can do things you <em>could</em> do by hand faster and with fewer mistakes.</p>
+
+<h3>Being smart###</h3>
+
+<p>Life is short and we have better things to do than solve easy problems.   </p>
+
+<p>Here are some meta-strategies:</p>
+
+<ul>
+<li><p>Test the accuracy of the procedure on data with known correct answers.   It&#39;s the only way you will know.</p></li>
+<li><p>Test that all the parts work with each other first with a <em>small</em> subset of the data.  If something isn&#39;t working, you want to know now, not after ten hours.  Do as much testing and debugging as you can, when it&#39;s cheap, before scaling up the the whole zottobyte dataset.</p></li>
+<li><p>Estimate how long your tasks are going to take, if you can.    For much of sequence analysis, ten times as much data take ten times as long to move, process.</p></li>
+<li><p>Plan like you&#39;re going to have to do <any particular task> again.  A lot.  You probably are.  You probably made a mistake.  </p></li>
+</ul>
+
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="https://www.facebook.com/SoftwareCarpentry">Facebook</a>
+  <a class="label swc-blue-bg" href="https://plus.google.com/u/0/114244759874490019250/posts">Google+</a>
+  <a class="label swc-blue-bg" href="https://twitter.com/swcarpentry">Twitter</a>
+  <a class="label swc-blue-bg" href="https://github.com/swcarpentry">GitHub</a>
+  <a class="label swc-blue-bg" href="http://software-carpentry.org/feed.xml">RSS</a>
+  <a class="label swc-blue-bg" href="../../license.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:info@software-carpentry.org?subject=bug%20in%20lessons/misc-biopython/tutorial.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../js/jquery-1.9.1.min.js"></script>
+<script src="../../js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

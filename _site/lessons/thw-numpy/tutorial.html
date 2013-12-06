@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
+<link href="../../css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="../../css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="../../css/swc.css" />
+<link rel="stylesheet" type="text/css" href="../../css/swc-bootstrap.css" />
+<link rel="alternate" type="application/rss+xml" title="The Software Carpentry Blog" href="/feed.xml"/>
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://software-carpentry.org" title="Software Carpentry">
+    <img alt="Software Carpentry banner" src="../../img/software-carpentry-banner.png" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+          <h1>NumPy</h1>
+          <p><strong>Based on Lecture Materials By Matthew Terry and Katy Huff</strong></p>
+
+<p>This class will cover a broad overview of NumPy with brief illustrative
+examples geared towards getting people familiar with the basic use
+cases. Since NumPy has many advanced features that may be useful to
+experienced programmers, these notes will occasionally link to more
+advanced examples that readers can peruse on their own time.</p>
+
+<p><strong>Aside: Code Examples</strong></p>
+
+<p>In all the examples below, we assume that <code>import numpy</code> has already been
+executed. If any other modules are needed, we will import them
+explicitly.</p>
+
+<h1>NumPy basics</h1>
+
+<h2>What is NumPy ?</h2>
+
+<p>NumPy is a Python package implementing efficient collections of specific
+types of data (generally numerical), similar to the standard array
+module (but with many more features). NumPy arrays differ from lists and
+tuples in that the data is contiguous in memory. A Python <strong>list</strong>, 
+<code>[0, 1, 2]</code>, in contrast, is actually an array of pointers to Python
+objects representing each number. This allows NumPy arrays to be
+considerably faster for numerical operations than Python lists/tuples.</p>
+
+<h2>Creating NumPy Arrays</h2>
+
+<p>Creating a NumPy array is as simple as passing a sequence to
+numpy.array. You can also explicitly specify the data-type if the
+automatically-chosen one would be unsuitable.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>   
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">.</span><span class="n">dtype</span> 
+  <span class="n">dtype</span><span class="p">(</span><span class="s">&#39;float64&#39;</span><span class="p">)</span>   
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span><span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span> <span class="nb">int</span><span class="p">)</span>   
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span><span class="o">.</span><span class="n">dtype</span>   
+  <span class="n">dtype</span><span class="p">(</span><span class="s">&#39;int32&#39;</span><span class="p">)</span> 
+</code></pre></div>
+<p>As you might expect, creating a NumPy array this way can be slow, since
+it must manually convert each element of a list into its equivalent C
+type (int objects become C ints, etc). There are many other ways to
+create NumPy arrays, such as <strong>numpy.identity</strong>, <strong>numpy.zeros</strong>,
+<strong>numpy.zeros_like</strong>, or by manually specifying the dimensions and type
+of the array with the low-level creation function:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span> <span class="c"># new 2x3x4 array of complex numbers </span>
+</code></pre></div>
+<p>For many of the examples below, we will be using <strong>numpy.arange</strong> which,
+similar to the Python built-in function <strong>range</strong>, returns a NumPy array
+of integers from 0 to N-1, inclusive. Like <strong>range</strong>, you can also
+specify a starting value and a step.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+</code></pre></div>
+<h3>Exercise : Create an Array</h3>
+
+<p>Create a NumPy array with values ranging from 0 to 10, in increments of
+0.5. Don&#39;t forget to use <strong>help()</strong> to find useful functions!</p>
+
+<h2>Data types</h2>
+
+<p>When creating a NumPy array, you supply a dtype (&quot;data type&quot;), or one is
+chosen for you. There are a total of 21 different array scalar types,
+which can be used to specify the dtype. In addition to the scalar type,
+you may also specify byte order (little- or big-endian) or even multiple
+scalar types to be used as a light-weight tuple (similar to a C struct).
+For everyday use, however, you can just pass in the appropriate scalar
+type and NumPy will figure it out. Some common scalar types include:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">int     # Python-compatible int (usually a C long)
+intc    # C int
+float   # Python-compatible float (usually a C double)
+single  # C float
+double  # C double
+complex # Python-compatible complex
+</code></pre></div>
+<h2>List operations</h2>
+
+<p>For basic operations, NumPy arrays can be accessed just like Python
+lists and tuples. This means that you can use the square brackets to
+access elements, <strong>len()</strong> to access the size of the array, and so on.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+  <span class="mi">3</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span>  <span class="mi">4</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+  <span class="mi">5</span>
+</code></pre></div>
+<h2>Arithmetic</h2>
+
+<p>Since NumPy exists to perform efficient numerical operations in Python,
+it stands to reason that NumPy arrays have all the usual arithmetic
+operations available to them. These operations are performed
+element-wise (i.e. the same operation is performed independently on each
+element of the array).</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">+</span><span class="n">B</span>
+  <span class="n">array</span><span class="p">([</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span><span class="o">-</span><span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span>
+  <span class="n">array</span><span class="p">([</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">36</span><span class="p">])</span>
+</code></pre></div>
+<p>In addition, if one of the arguments is a scalar, that value will be
+applied to all the elements of the array.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">*</span><span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">**</span><span class="mi">2</span>
+  <span class="n">array</span><span class="p">([</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">+</span><span class="mi">10</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">])</span>
+</code></pre></div>
+<h2>Comparison</h2>
+
+<p>Much like the basic arithmetic operations we discussed above, comparison
+operations are perfomed element-wise. That is, rather than returning a
+single boolean, comparison operators compare each element in both arrays
+pairwise, and return an <strong>array</strong> of booleans (if the sizes of the input
+arrays are incompatible, the comparison will simply return False). For
+example:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">==</span> <span class="n">B</span>
+  <span class="n">array</span><span class="p">([</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span>  <span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span>  <span class="bp">True</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+</code></pre></div>
+<p>From here, you can use the methods .any() and .all() to return a single
+boolean indicating whether any or all values in the array are True,
+respectively.</p>
+
+<h2>Advanced Indexing</h2>
+
+<p>In addition to the usual methods of indexing lists with an integer (or
+with a series of colon-separated integers for a slice), NumPy allows you
+to index arrays in a wide variety of different ways for more advanced
+operations.</p>
+
+<h2>Multi-dimensional Indexing</h2>
+
+<p>Unlike Python lists and tuples, NumPy arrays can be multidimensional.
+This complicates somewhat how they are indexed. To access a single
+element, you simply pass in a comma-separated list of indices as a
+subscript. However, there are many other things you can do when indexing
+multidimensional arrays.</p>
+
+<p>For instance, suppose you want the elements of a 2D array where the
+first dimension is 1. NumPy makes this extremely simple:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+         <span class="p">[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">],</span>
+         <span class="p">[</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+         <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+</code></pre></div>
+<p>Now suppose you want the elements of that array where the <strong>second</strong>
+dimension is 1. To do this, you can use &quot;slices&quot; of an entire dimension
+as a placeholder by typing : as your first &quot;index&quot;. Continuing from
+above:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+  <span class="n">array</span><span class="p">([</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">13</span><span class="p">])</span>
+</code></pre></div>
+<p>As you&#39;d expect, this type of indexing can become quite complicated with
+arrays of high dimension.</p>
+
+<h3>Exercise : Selective Array Display</h3>
+
+<p>Using what we&#39;ve learned about slicing and indexing, print just the
+upper-left quarter of the array A above.</p>
+
+<h2>Indexing with Arrays</h2>
+
+<p>NumPy arrays can be indexed with other arrays, using either an array of
+indices, or an array of booleans of the same length. In the former case,
+NumPy returns a view of the data in the specified indices as a new
+array. In the latter, NumPy returns a view of the array with only the
+elements where the index array is True. (We&#39;ll discuss the difference
+between views and copies in a moment.) This makes normally-tedious
+operations like clamping extremely simple.</p>
+
+<p>Indexing with an array of indices:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+</code></pre></div>
+<p>Indexing with an array of booleans:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">random</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span>  <span class="mi">8</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="p">[</span><span class="n">A</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</code></pre></div>
+<h1>NumPy Gotchas</h1>
+
+<p>NumPy has some important interface differences from Python lists and
+tuples that can confuse new users of the library. Below are the most
+notable of these.</p>
+
+<h2>Multiplication and Addition</h2>
+
+<p>As you may have noticed above, since NumPy arrays are modeled more
+closely after vectors and matrices, multiplying by a scalar will
+multiply each element of the array, whereas multiplying a list by a
+scalar will repeat that list N times.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span>
+  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</code></pre></div>
+<p>Similarly, when adding two NumPy arrays together, we get the vector sum
+back, whereas when adding two lists together, we get the concatenation
+back.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</code></pre></div>
+<h2>Views vs. Copies</h2>
+
+<p>In order to be as efficient as possible, NumPy uses &quot;views&quot; instead of
+copies wherever possible. That is, NumPy arrays derived from another
+base array generally refer to the &#39;&#39;exact same data&#39;&#39; as the base array.
+The consequence of this is that modification of these derived arrays
+will also modify the base array. You saw this above in how the result of
+an array indexed by an array of indices is a &#39;&#39;copy&#39;&#39;, but an array
+indexed by an array of booleans is a &#39;&#39;view&#39;&#39;. (Phew!)</p>
+
+<p>Specifically, slices of arrays are always views, unlike slices of lists
+or tuples, which are always copies.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</code></pre></div>
+<h3>Exercise : Copy a NumPy Array</h3>
+
+<p>Figure out how to create a copy of a NumPy array. Remember: since NumPy
+slices are views, you can&#39;t use the trick you&#39;d use for Python lists,
+i.e. copy = list[:].</p>
+
+<h1>Mathematics with NumPy</h1>
+
+<p>Being designed for scientific computing, NumPy also contains a host of
+common mathematical functions, including linear algebra functions, fast
+Fourier transforms, and probability/statistics functions. While there
+isn&#39;t space to go over &#39;&#39;all&#39;&#39; of these in detail, we will provide an
+overview of the most common/essential of these.</p>
+
+<h2>Basics</h2>
+
+<p>All NumPy arrays have a collection of basic operations built-in. Most of
+these can be used to operate only on a particular axis of the array, but
+for simplicity, we will only show them in action on one-dimensional
+arrays.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">random</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+  <span class="mi">0</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+  <span class="mi">9</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+  <span class="mf">6.4000000000000004</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="c"># standard deviation</span>
+  <span class="mf">2.9732137494637012</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="mi">64</span>
+</code></pre></div>
+<p>For 2-dimensional (or more) arrays, there are some other common
+operations:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span>
+  <span class="n">array</span><span class="p">([[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+         <span class="p">[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">],</span>
+         <span class="p">[</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+         <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="c"># transpose</span>
+  <span class="n">array</span><span class="p">([[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+         <span class="p">[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">13</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">3</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">15</span><span class="p">]])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span>
+  <span class="mi">30</span>
+</code></pre></div>
+<p>There are many more methods like these available with NumPy arrays. Be
+sure to consult the NumPy documentation before writing your own
+versions!</p>
+
+<h2>Matrices</h2>
+
+<p>So far, we&#39;ve used two-dimensional arrays to represent matrix-like
+objects. However, NumPy provides a specialized class for this. The
+matrix class is almost identical to a two-dimensional NumPy array, but
+has a few changes to the interface to simplify common linear algebraic
+tasks. These are: * The <code>*</code> operator is performs matrix multiplication
+* The <code>**</code> operator performs matrix exponentiation * The property <code>.I</code>
+(or the method <code>.getI()</code>) returns the matrix inverse * The property
+<code>.H</code> (or the method <code>.getH()</code>) returns the conjugate transpose</p>
+
+<h3>Example: Solving a System of Linear Equations</h3>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy.linalg</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">matrix</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">B</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+  <span class="n">array</span><span class="p">([</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.</span><span class="p">])</span>
+</code></pre></div>
+<h1>Universal Functions</h1>
+
+<p>Universal functions (also called ufuncs) are high-speed, element-wise
+operations on NumPy arrays. They are, in essence, what allows you to
+operate on NumPy arrays efficiently. There are a large number of
+universal functions available covering most of the basic operations that
+get performed on data, like addition, subtraction, logarithms, and so
+on. Calling a ufunc is a simple matter:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+  <span class="o">&gt;&gt;&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+  <span class="n">array</span><span class="p">([</span> <span class="mf">0.</span>        <span class="p">,</span>  <span class="mf">0.30103</span>   <span class="p">,</span>  <span class="mf">0.47712125</span><span class="p">,</span>  <span class="mf">0.60205999</span><span class="p">,</span>  <span class="mf">0.69897</span>   <span class="p">,</span>
+          <span class="mf">0.77815125</span><span class="p">,</span>  <span class="mf">0.84509804</span><span class="p">,</span>  <span class="mf">0.90308999</span><span class="p">,</span>  <span class="mf">0.95424251</span><span class="p">])</span>
+</code></pre></div>
+<p>In addition to basic operation like above, ufuncs that take two input
+arrays and return an output array can be used in more advanced ways.</p>
+
+<h2>ufuncs</h2>
+
+<h3>Exercise : Elementwise Operations</h3>
+
+<p>Using ufuncs, calculate the reciprocals of each element in the following
+array:</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="p">[</span><span class="mf">8.1</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.3</span><span class="p">,</span> <span class="mf">4.7</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span>
+  <span class="mf">1.4</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">,</span> <span class="mf">5.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">8.7</span><span class="p">,</span> <span class="mf">4.6</span><span class="p">,</span> <span class="mf">8.8</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">]</span>
+</code></pre></div>
+<h1>External Resources</h1>
+
+<p>NumPy has too many features to discuss here. However, there are plenty
+of resources on the web that describe NumPy in detail. Here is a
+selection of them:</p>
+
+<ul>
+<li><a href="http://docs.scipy.org/doc/numpy/user">NumPy user&#39;s guide</a></li>
+<li><a href="http://docs.scipy.org/doc/numpy/reference/">NumPy Reference</a></li>
+<li><a href="http://www.scipy.org/NumPy_for_Matlab_Users">NumPy For Matlab Users</a></li>
+<li><a href="http://www.scipy.org/Cookbook">NumPy CookBook</a> </li>
+</ul>
+
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="https://www.facebook.com/SoftwareCarpentry">Facebook</a>
+  <a class="label swc-blue-bg" href="https://plus.google.com/u/0/114244759874490019250/posts">Google+</a>
+  <a class="label swc-blue-bg" href="https://twitter.com/swcarpentry">Twitter</a>
+  <a class="label swc-blue-bg" href="https://github.com/swcarpentry">GitHub</a>
+  <a class="label swc-blue-bg" href="http://software-carpentry.org/feed.xml">RSS</a>
+  <a class="label swc-blue-bg" href="../../license.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:info@software-carpentry.org?subject=bug%20in%20lessons/thw-numpy/tutorial.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../js/jquery-1.9.1.min.js"></script>
+<script src="../../js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>
