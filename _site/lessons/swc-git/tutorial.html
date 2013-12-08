@@ -87,7 +87,9 @@ and why that&#39;s a good way to structure their working day.</p>
 <li>Make sure the network is working <em>before</em> starting this lesson.</li>
 <li>Give learners a ten-minute overview of what version control does for them
 before diving into the watch-and-do practicals.
-Most of them will have tried to co-author papers by emailing files back and forth,
+Most of them will have tried to co-author papers by emailing files back and forth
+(or in more recent years using cloud storage with file synchronization,
+e.g. Dropbox, Google Drive, ...),
 or will have biked into the office
 only to realize that the USB key with last night&#39;s work
 is still on the kitchen table.
@@ -145,24 +147,27 @@ our email address,
 and that we want it to colorize output.</p>
 
 <p>There are a few more configuration variables to set depending on your OS. First, 
-choose a text editor. This might be textedit on the Mac, or Notepad on windows. The default
-is probably vi, which frightens people. If they&#39;ve installed a better editor for the workshop, use that instead. 
-Make sure the editor runs from the command line as configured; use a full path if necessary. 
-The second OS-specific option deals with the different handling of line endings. If they ever collaborate 
+choose a text editor. We recommend that novices use <a href="http://en.wikipedia.org/wiki/GNU_nano">GNU
+nano</a> because it&#39;s easy to use and
+works in most operating systems. Some other options
+might be TextEdit on the Mac, gedit on GNU/Linux or Notepad on Windows. The
+default on many systems is vi, which is not a friendly text editor for beginners.
+If they&#39;ve installed a better editor for the workshop, use that instead.
+Make sure the editor runs from the command line as configured; use a full path if necessary. </p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ git config --global core.editor &quot;nano&quot;
+</code></pre></div>
+<p>The second OS-specific option deals with the different handling of line endings. If they ever collaborate 
 with a computer on another OS, this configuration will prevent headaches.</p>
 
-<p>On Windows:
-<code>
-$ git config --global core.editor &quot;notepad&quot;
-$ git config --global core.autocrlf &quot;true&quot;
-</code></p>
-
-<p>On Mac or Linux:
-<code>
-$ git config --global core.editor &quot;textedit&quot;
-$ git config --global core.autocrlf &quot;input&quot;
-</code></p>
-
+<p>On Mac:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ git config --global core.autocrlf &quot;input&quot;
+</code></pre></div>
+<p>On GNU/Linux:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ git config --global core.autocrlf &quot;input&quot;
+</code></pre></div>
+<p>On Windows:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ git config --global core.autocrlf &quot;true&quot;
+</code></pre></div>
 <p>We can now start actually using Git.
 Let&#39;s create a directory for our work:</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">$ mkdir planets
@@ -227,7 +232,7 @@ We can tell it that it should start like this:</p>
 #   new file:   mars.txt
 #
 </code></pre></div>
-<p>Git now knows that it&#39;s supposed to keep tack of this file,
+<p>Git now knows that it&#39;s supposed to keep track of this file,
 but it <em>hasn&#39;t</em> recorded our changes for posterity---not yet.
 To do that,
 we need to run one more command:</p>
@@ -610,7 +615,7 @@ mars.txt    moons.txt
 no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
 </code></pre></div>
 <p>Let&#39;s add and commit those changes
-(the <code>-A</code> flag to <code>git commit</code> means &quot;add everything&quot;):</p>
+(the <code>-A</code> flag to <code>git add</code> means &quot;add everything&quot;):</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">$ git add -A
 $ git status
 # On branch moons
@@ -840,7 +845,8 @@ $ git commit -m &quot;Adding a line to moons.txt in the master branch&quot;
 <p>FIXME: diagram</p>
 
 <p>Now let&#39;s switch to the <code>moons</code> branch and make a different change there:</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">$ echo &quot;This line added in the moons branch&quot; &gt;&gt; moons.txt
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ git checkout moons
+$ echo &quot;This line added in the moons branch&quot; &gt;&gt; moons.txt
 $ cat moons.txt
 Phobos is larger than Deimos
 This line added in the moons branch
@@ -940,7 +946,7 @@ $ cat moons.txt
 Phobos is larger than Deimos
 Lines added in the master and moons branches
 </code></pre></div>
-<p>The key phrase here is &quot;fast forward&quot;
+<p>The key phrase here is &quot;fast-forward&quot;
 (which appears in the output of the <code>git merge</code> command).
 Since we had already resolved the conflicts between
 the copies of <code>moons.txt</code> in the <code>master</code> and <code>moons</code> branches,
@@ -1254,6 +1260,8 @@ and to her code and data repositories,
 which  makes it much easier for other scientists
 to use her work as starting point for their own research.</li>
 </ul>
+
+<!-- SJE: Can you give a reference to support "Studies have shown"? -->
 
 <p>Studies have shown that the more open model accelerates discovery,
 and that more open work is more widely cited.

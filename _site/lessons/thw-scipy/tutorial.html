@@ -156,7 +156,7 @@ But as a example let&#39;s focus on my favorites: the Bessel functions.</p>
 </code></pre></div>
 <p>These 20-ish lines of code should produce :</p>
 
-<p><img src="/images/BesselFigure.png" alt=""></p>
+<p><img src="../../lessons/thw-scipy/images/BesselFigure.png" alt=""></p>
 
 <p>Note that the figure that was created here is a reproduction of Figure
 6.5.1 in &#39;&#39;Numerical Recipes&#39;&#39; by W. H. Press, et al...
@@ -224,7 +224,7 @@ now we need to use the <strong>dblquad( f(y,x), ...)</strong> function instead o
 simply <strong>quad( f(x), ...)</strong>. Because a picture is worth 10^3 words,
 SciPy computes the right-hand side of the following equation:</p>
 
-<p><img src="/images/dblquad.png" alt=""></p>
+<p><img src="../../lessons/thw-scipy/images/dblquad.png" alt=""></p>
 
 <p>More information on the justification of this integral may be found at
 http://en.wikipedia.org/wiki/Order_of_integration_(calculus). For
@@ -263,7 +263,7 @@ integrate using <strong>tplquad( f(z, y, x) )</strong>. Moreover, <strong>z</str
 integration defined by surfaces give as functions <strong>[q(x,y), r(x,y)]</strong>.
 Thus, <strong>tplquad(...)</strong> integrates the right-hand side of :</p>
 
-<p><img src="/images/trplquad.png" alt=""></p>
+<p><img src="../../lessons/thw-scipy/images/trplquad.png" alt=""></p>
 
 <p>To continue with the previous example, let&#39;s try integrating the volume
 of a sphere. Take the radius here to be 3.5.</p>
@@ -408,7 +408,7 @@ is demonstrated though examples and figures.</p>
 </code></pre></div>
 <p>The above script, pade1.py, generates the following figure :</p>
 
-<p><img src="/images/PadeFigure1.png" alt=""></p>
+<p><img src="../../lessons/thw-scipy/images/PadeFigure1.png" alt=""></p>
 
 <p>Now the gains from using the Pade approximant for an exponential here seem
 slight. This is because the original exponential expansion is rather well
@@ -458,7 +458,7 @@ function. Let&#39;s try approximating a rougher function...</p>
   <span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 <p>The above script, pade2.py, generates the following figure
-<img src="/images/PadeFigure2.png" alt=""></p>
+<img src="../../lessons/thw-scipy/images/PadeFigure2.png" alt=""></p>
 
 <p>Note, that this example is again taken from Section 5.12 in Numerical
 Recipes by W. H. Press, et
@@ -478,7 +478,7 @@ functionality is buried (again) within the <code>miscellaneous</code> module.</p
 <p>First let&#39;s read in an image file. For now make it a JPEG. From
 Wikipedia. Of a bunny.  http://en.wikipedia.org/wiki/File:JumpingRabbit.JPG</p>
 
-<p><img src="/images/image.jpg" alt=""></p>
+<p><img src="../../lessons/thw-scipy/images/image.jpg" alt=""></p>
 <div class="highlight"><pre><code class="python language-python" data-lang="python">  <span class="kn">import</span> <span class="nn">scipy.misc</span>
   <span class="n">img</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s">&quot;image.jpg&quot;</span><span class="p">)</span>
   <span class="c">#Note that this really is an array!</span>
@@ -544,7 +544,7 @@ Wikipedia. Of a bunny.  http://en.wikipedia.org/wiki/File:JumpingRabbit.JPG</p>
 </code></pre></div>
 <p>These functions produce the following image:</p>
 
-<p><img src="/images/image1.jpg" alt=""></p>
+<p><img src="../../lessons/thw-scipy/images/image1.jpg" alt=""></p>
 
 <p>Because the array takes integer values from 0 - 255, we can easily
 define our own filters as well! For instance, you could write a two-line
@@ -560,7 +560,7 @@ function to inverse the image...</p>
 <p>Having this much fun, the rabbit becomes a twisted shade of its former
 self!</p>
 
-<p><img src="/images/image2.jpg" alt=""></p>
+<p><img src="../../lessons/thw-scipy/images/image2.jpg" alt=""></p>
 
 <p>Check out http://docs.scipy.org/doc/scipy/reference/misc.html for a complete
 listing of associated image functions.</p>

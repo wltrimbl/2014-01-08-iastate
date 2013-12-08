@@ -252,6 +252,172 @@
 
 </section>
 
+<section id="s:shell:intro">
+  <h2>What and Why</h2>
+  <h3>Objectives</h3>
+  <div id="s:shell:intro:objectives" class="objectives">
+  <ul>
+    <li>Draw a diagram to show how the shell relates to the keyboard, the screen, the operating system, and users' programs.</li>
+    <li>Explain when and why command-line interfaces should be used instead of graphical interfaces.</li>
+  </ul>
+  <p>Duration: 10 minutes.</p>
+</div>
+
+  <h3>Lesson</h3>
+  <div id="s:shell:intro:lesson" class="lesson">
+
+  <p>
+    At a high level, computers do four things:
+  </p>
+
+  <ul>
+    <li>run programs;</li>
+    <li>store data;</li>
+    <li>communicate with each other; and</li>
+    <li>interact with us.</li>
+  </ul>
+
+  <p>
+    They can do the last of these in many different ways,
+    including direct brain-computer links and speech interfaces.
+    Since these are still in their infancy,
+    most of us use windows, icons, mice, and pointers.
+    These technologies didn't become widespread until the 1980s,
+    but their roots go back to Doug Engelbart's work in the 1960s,
+    which you can see in what has been called
+    "<a href="http://video.google.com/videoplay?docid=-8734787622017763097#">The Mother of All Demos</a>".
+  </p>
+
+  <p>
+    Going back even further,
+    the only way to interact with early computers was to rewire them.
+    But in between,
+    from the 1950s to the 1980s,
+    most people used a technology based on the old-fashioned typewriter.
+    That technology is still widely used today,
+    and is the subject of this chapter.
+  </p>
+
+  <figure id="f:decwriter">
+    <img src="../../img/lessons/swc-shell/decwriter.jpg" alt="DECWriter LA-36" />
+    <figcaption>Figure 1: DECWriter LA-36</figcaption>
+  </figure>
+
+  <p>
+    When I say "typewriter", I actually mean a line printer connected to a keyboard
+    (<a href="#f:decwriter">Figure 1</a>).
+    These devices only allowed input and output of the letters, numbers, and punctuation found on a standard keyboard,
+    so programming languages and interfaces had to be designed around that constraint&mdash;though
+    if you had enough time on your hands,
+    you could draw simple pictures using just those characters
+    (<a href="#f:ascii_art">Figure 2</a>).
+  </p>
+
+  <figure id="f:ascii_art">
+<pre>
+                    ,-.             __
+                  ,'   `---.___.---'  `.
+                ,'   ,-                 `-._
+              ,'    /                       \
+           ,\/     /                        \\
+       )`._)>)     |                         \\
+       `>,'    _   \                  /       ||
+         )      \   |   |            |        |\\
+.   ,   /        \  |    `.          |        | ))
+\`. \`-'          )-|      `.        |        /((
+ \ `-`   .`     _/  \ _     )`-.___.--\      /  `'
+  `._         ,'     `j`.__/           `.    \
+    / ,    ,'         \   /`             \   /
+    \__   /           _) (               _) (
+      `--'           /____\             /____\
+</pre>
+    <figcaption>Figure 2: ASCII Art</figcaption>
+  </figure>
+
+  <p>
+    Today,
+    this kind of interface is called a <a href="glossary.html#clui">command-line user interface</a>,
+    or CLUI,
+    to distinguish it from the <a href="glossary.html#gui">graphical user interface</a>,
+    or GUI,
+    that most of us now use.
+    The heart of a CLUI is a <a href="glossary.html#repl">read-evaluate-print loop</a>,
+    or REPL:
+    when the user types a command,
+    the computer reads it,
+    executes it,
+    and prints its output.
+    (In the case of old teletype terminals, it literally printed the output onto paper, a line at a time.)
+    The user then types another command,
+    and so on until the user logs off.
+  </p>
+
+  <p>
+    This description makes it sound as though
+    the user sends commands directly to the computer,
+    and the computer sends output directly to the user.
+    In fact,
+    there is usually a program in between called a <a href="glossary.html#shell">command shell</a>
+    (<a href="#f:command_shell">Figure 3</a>).
+    What the user types goes into the shell;
+    it figures out what commands to run and orders the computer to execute them.
+  </p>
+
+  <figure id="f:command_shell">
+    <img src="../../img/lessons/swc-shell/command_shell.svg" alt="The Command Shell" />
+    <figcaption>Figure 3: The Command Shell</figcaption>
+  </figure>
+
+  <p>
+    A shell is a program like any other.
+    What's special about it is that its job is to run other programs,
+    rather than to do calculations itself.
+    The most popular Unix shell is Bash, the Bourne Again SHell
+    (so-called because it's derived from a shell written by Stephen Bourne&mdash;this
+    is what passes for wit among programmers).
+    Bash is the default shell on most modern implementations of Unix,
+    and in most packages that provide Unix-like tools for Windows,
+    such as <a href="http://www.cygwin.org">Cygwin</a>.
+  </p>
+
+  <p>
+    Using Bash,
+    or any other shell,
+    sometimes feels more like programming that like using a mouse.
+    Commands are terse (often only a couple of characters long),
+    their names are frequently cryptic,
+    and their output is lines of text rather than something visual like a graph.
+    On the other hand,
+    the shell allows us to combine existing tools in powerful ways with only a few keystrokes,
+    and to set up pipelines to handle large volumes of data automatically.
+    In addition,
+    the command line is often the easiest way to interact with remote machines.
+    As clusters and cloud computing become more popular for scientific data crunching,
+    being able to drive them is becoming a necessary skill.
+  </p>
+
+</div>
+
+  <h3>Summary</h3>
+  <div id="s:shell:intro:keypoints" class="keypoints">
+  <ul>
+    <li>
+      A shell is a program whose primary purpose is to read commands and run other programs.
+    </li>
+    <li>
+      The shell's main advantages are its high action-to-keystroke ratio,
+      its support for automating repetitive tasks,
+      and that it can be used to access networked machines.
+    </li>
+    <li>
+      The shell's main disadvantages are its primarily textual nature
+      and how cryptic its commands and operation can be.
+    </li>
+  </ul>
+</div>
+
+</section>
+
 <section id="s:shell:filedir">
   <h2>Files and Directories</h2>
   <h3>Objectives</h3>
@@ -328,6 +494,8 @@ $
     <li>displays a new prompt to tell us that it's ready for more commands.</li>
   </ol>
 
+  <h3>Getting Around</h3>
+
   <p>
     Next,
     let's find out where we are
@@ -384,7 +552,7 @@ $
   </p>
 
   <figure id="f:filesystem">
-    <img src="shell/filesystem.png" alt="File System" />
+    <img src="../../img/lessons/swc-shell/filesystem.png" alt="File System" />
     <figcaption>Figure 4: File System</figcaption>
   </figure>
 
@@ -415,7 +583,7 @@ $
   </p>
 
   <figure id="f:home_directories">
-    <img src="shell/home_directories.png" alt="Home Directories" />
+    <img src="../../img/lessons/swc-shell/home_directories.png" alt="Home Directories" />
     <figcaption>Figure 5: Home Directories</figcaption>
   </figure>
 
@@ -457,7 +625,7 @@ $
   </p>
 
   <figure id="f:vlad_homedir">
-    <img src="shell/vlad_homedir.png" alt="Vlad's Home Directory" />
+    <img src="../../img/lessons/swc-shell/vlad_homedir.png" alt="Vlad's Home Directory" />
     <figcaption>Figure 6: Vlad's Home Directory</figcaption>
   </figure>
 
@@ -529,7 +697,7 @@ $
   </p>
 
   <figure id="f:relative_path">
-    <img src="shell/absolute_relative_path.png" alt="Absolute and Relative Paths" />
+    <img src="../../img/lessons/swc-shell/absolute_relative_path.png" alt="Absolute and Relative Paths" />
     <figcaption>Figure 7: Absolute and Relative Paths</figcaption>
   </figure>
 
@@ -627,6 +795,27 @@ $ <span class="in">cd ..</span>
     or,
     more succinctly,
     the <a href="glossary.html#parent-directory">parent</a> of the current directory.
+  </p>
+  
+  <div class="box">
+    <h3>No Output = OK</h3>
+
+    <p>
+      In general, shell programs do not output anything
+      if no errors occurred. The principle behind this is
+      "If there is nothing to report, shut up.", i. e. if
+      there is output, either you specifically requested the
+      program to do so or something bad happened.
+    </p>
+    <p>
+      This does not apply to programs like <code>ls</code> or 
+      <code>pwd</code>, since the purpose of such programs is
+      to output something.
+    </p>
+
+  </div>
+
+  <p class="continue">
     Sure enough,
     if we run <code>pwd</code> after running <code>cd&nbsp;..</code>,
     we're back in <code>/users/vlad</code>:
@@ -858,7 +1047,7 @@ $ <span class="in">ls north-pacific-gyre/</span>
   </p>
 
   <figure id="f:filedir_challenge">
-    <img src="shell/filedir_challenge.png" alt="File System Layout for Challenge Questions" />
+    <img src="../../img/lessons/swc-shell/filedir_challenge.png" alt="File System Layout for Challenge Questions" />
     <figcaption>Figure 8: File System Layout for Challenge Questions</figcaption>
   </figure>
 
@@ -1017,7 +1206,7 @@ $ <span class="in">nano draft.txt</span>
   </p>
 
   <figure id="f:nano">
-    <img src="shell/nano.png" alt="The Nano Editor" />
+    <img src="../../img/lessons/swc-shell/nano.png" alt="The Nano Editor" />
     <figcaption>Figure 9: The Nano Editor</figcaption>
   </figure>
 
@@ -1030,7 +1219,7 @@ $ <span class="in">nano draft.txt</span>
   </p>
 
   <figure id="f:nano_quotation">
-    <img src="shell/nano_quotation.png" alt="Nano in Action" />
+    <img src="../../img/lessons/swc-shell/nano_quotation.png" alt="Nano in Action" />
     <figcaption>Figure 10: Nano in Action</figcaption>
   </figure>
 
@@ -1081,6 +1270,50 @@ $
 </pre>
 
   <p>
+    If we just want to quickly create a file with no content, we
+    can use the command <code>touch</code>.
+  </p>
+
+<pre>
+$ <span class="in">touch draft_empty.txt</span>
+$ <span class="in">ls</span>
+<span class="out">draft.txt   draft_empty.txt</span>
+$
+</pre>
+
+  <p>
+    The <code>touch</code> command has allowed us to create a file
+    without leaving the command line.  As with text editors like 
+    <code>nano</code>, <code>touch</code> will create the file in
+    your current working directory.
+  </p>
+
+  <p>
+    If we <code>touch</code> a file that already exists, the time of
+    last modification for the file is updated to the present time,
+    but the file is otherwise unaltered.  We can demonstrate this by
+    running <code>ls</code> with the <code>-l</code> flag to give a
+    long listing of files in the
+    current directory which includes information about the date and
+    time of last modification.
+  </p>
+
+<pre>
+$ <span class="in">ls -l</span>
+<span class="out">-rw-r--r-- 1 username username 512 Oct  9 15:46 draft.txt</span>
+<span class="out">-rw-r--r-- 1 username username   0 Oct  9 15:47 draft_empty.txt</span>
+$ <span class="in">touch draft.txt</span>
+$ <span class="in">ls -l</span>
+<span class="out">-rw-r--r-- 1 username username 512 Oct  9 15:48 draft.txt</span>
+<span class="out">-rw-r--r-- 1 username username   0 Oct  9 15:47 draft_empty.txt</span>
+</pre>
+
+  <p>
+    Note how the modification time of <code>draft.txt</code> changes
+    after we <code>touch</code> it.
+  </p>
+
+  <p>
     We can run <code>ls</code> with the <code>-s</code> flag
     (for "size")
     to show us how large <code>draft.txt</code> is:
@@ -1088,7 +1321,7 @@ $
 
 <pre>
 $ <span class="in">ls -s</span>
-<span class="out">   1  draft.txt</span>
+<span class="out">   1  draft.txt        0  draft_empty.txt</span>
 $
 </pre>
 
@@ -1102,18 +1335,18 @@ $
 
 <pre>
 $ <span class="in">ls -s -h</span>
-<span class="out"> 512  draft.txt</span>
+<span class="out"> 512  draft.txt        0  draft_empty.txt</span>
 $
 </pre>
 
   <p class="continue">
-    Here, 512 is the number of bytes in the file.
+    Here, 512 is the number of bytes in the <code>draft.txt</code> file.
     This is more than we actually typed in because
     the smallest unit of storage on the disk is typically a block of 512 bytes.
   </p>
 
   <p>
-    Let's tidy up by running <code>rm draft.txt</code>:
+    Let's start tidying up by running <code>rm draft.txt</code>:
   </p>
 
 <pre>
@@ -1123,9 +1356,28 @@ $
 
   <p class="continue">
     This command removes files ("rm" is short for "remove").
-    If we now run <code>ls</code> again,
-    its output is empty once more,
-    which tells us that our file is gone:
+    If we run <code>ls</code>, only the <code>draft_empty.txt</code>
+    file remains:
+  </p>
+
+<pre>
+$ <span class="in">ls</span>
+<span class="out">draft_empty.txt</span>
+$
+</pre>
+
+  <p>
+    Now we'll finish cleaning up by running <code>rm draft_empty.txt</code>:
+  </p>
+
+<pre>
+$ <span class="in">rm draft_empty.txt</span>
+$
+</pre>
+
+  <p>
+    If we run <code>ls</code> again, its output is empty,
+    which tells us that both of our files are gone:
   </p>
 
 <pre>
@@ -1149,14 +1401,14 @@ $
   </div>
 
   <p>
-    Let's re-create that file
+    Let's re-create <code>draft.txt</code> as an empty file,
     and then move up one directory to <code>/users/vlad</code> using <code>cd&nbsp;..</code>:
   </p>
 
 <pre>
 $ <span class="in">pwd</span>
 <span class="out">/users/vlad/thesis</span>
-$ <span class="in">nano draft.txt</span>
+$ <span class="in">touch draft.txt</span>
 $ <span class="in">ls</span>
 <span class="out">draft.txt</span>
 $ <span class="in">cd ..</span>
@@ -1240,16 +1492,16 @@ $
 
   <p>
     Let's create that directory and file one more time.
-    (Note that this time we're running <code>nano</code> with the path <code>thesis/draft.txt</code>,
+    (Note that this time we're running <code>touch</code> with the path <code>thesis/draft.txt</code>,
     rather than going into the <code>thesis</code> directory
-    and running <code>nano</code> on <code>draft.txt</code> there.)
+    and running <code>touch</code> on <code>draft.txt</code> there.)
   </p>
 
 <pre>
 $ <span class="in">pwd</span>
 <span class="out">/users/vlad/thesis</span>
 $ <span class="in">mkdir thesis</span>
-$ <span class="in">nano thesis/draft.txt</span>
+$ <span class="in">touch thesis/draft.txt</span>
 $ <span class="in">ls thesis</span>
 <span class="out">draft.txt</span>
 $
@@ -1382,6 +1634,7 @@ $
     <li><code>cp <em>old</em> <em>new</em></code> copies a file.</li>
     <li><code>mv <em>old</em> <em>new</em></code> moves (renames) a file or directory.</li>
     <li><code>nano</code> is a very simple text editor&mdash;please use something else for real work.</li>
+    <li><code>touch <em>path</em></code> creates an empty file if it doesn't already exist.</li>
     <li><code>rm <em>path</em></code> removes (deletes) a file.</li>
     <li><code>rmdir <em>path</em></code> removes (deletes) an empty directory.</li>
   </ul>
@@ -1468,13 +1721,483 @@ $ <span class="in">cp intro.txt methods.txt survey.txt</span>
 
 </section>
 
+<section id="s:shell:wildcard">
+  <h2>Wildcards</h2>
+  <h3>Objectives</h3>
+  <div id="s:shell:wildcard:objectives" class="objectives">
+  <ul>
+    <li>Write wildcard expressions that select certain subsets of the files in one or more directories.</li>
+    <li>Write wildcard expressions to create multiple files.</li>
+    <li>Explain when wildcards are expanded.</li>
+    <li>Understand the difference between different wildcard characters.</li>
+    <li>Explain what globbing is.</li>
+    <li>Understand how to escape special characters.</li>
+  </ul>
+  <p>Duration: 15-20 minutes.</p>
+</div>
+
+  <h3>Lesson</h3>
+  <div id="s:shell:wildcard:lesson" class="lesson">
+
+  <p>
+    At this point we have a basic toolkit which allows us to do
+    things in the shell that you can normally do in Windows,
+    Mac OS, or GNU/Linux with your mouse.  For example, 
+    we can create, delete
+    and move individual files.  We will now learn about
+    <a href="glossary.html#wildcard">wildcards</a>,
+    which will allow us to expand our toolkit so that we can
+    perform operations on multiple files with a single command.
+    We'll start in an empty directory and create four files:
+  </p>
+
+<pre>
+$ <span class="in">touch file1.txt file2.txt otherfile1.txt otherfile2.txt</span>
+$ <span class="in">ls</span>
+<span class="out">file1.txt   file2.txt   otherfile1.txt   otherfile2.txt</span>
+$
+</pre>
+
+  <p>
+    If we want to see all filenames that start with "file", we can run the
+    command <code>ls file*</code>:
+  </p>
+
+<pre>
+$ <span class="in">ls file*</span>
+<span class="out">file1.txt   file2.txt</span>
+$
+</pre>
+
+  <div class="box" id="a:asterisk">
+    <h3>Asterisk (*) Wildcard</h3>
+    <p>
+      The asterisk wildcard <code>*</code> in the expression 
+      <code>file*</code> matches zero
+      or more characters of any kind.  Thus the expression <code>file*</code>
+      matches anything that starts with "file".  On the other hand,
+      <code>*file*</code> would match anything containing the word "file"
+      at all, such as <code>file1.txt</code>, 
+      <code>file2.txt</code>, <code>otherfile1.txt</code>, and
+      <code>otherfile2.txt</code>.
+    </p>
+
+    <p>
+      When the shell sees a wildcard, it expands it to create a list of
+      matching filenames <em>before</em> passing those names to whatever
+      command is being run.  This means that when you execute
+      <code>ls file*</code>, the shell first expands it to 
+      <code>ls file1.txt file2.txt</code> in the above example, 
+      and then runs that command.  This process of expansion is
+      called <a href="glossary.html#glob">globbing</a>.
+      Therefore commands like <code>ls</code> and
+      <code>rm</code> never see the wildcard characters, just what
+      those wildcards matched.  This is another example of orthogonal
+      design.
+    </p>
+
+  </div>
+
+  <p>
+    There are four other basic wildcard characters we will explore:
+  </p>
+
+  <ul>
+    <li>The <b>question mark, <code>?</code></b>, matches 
+      any single character,
+      so <code>text?.txt</code> would match 
+      <code>text1.txt</code> or 
+      <code>textz.txt</code>,
+      but not <code>text_1.txt</code>.</li>
+    <li>The <b>square brackets, <code>[</code> and <code>]</code></b>, 
+      which can be used to specify a set of possible characters.
+      For example, <code>text[135].txt</code> would match 
+      <code>text1.txt</code>,
+      <code>text3.txt</code>,
+      and <code>text5.txt</code>.
+      You can also specify a natural sequence of characters using
+      a dash.  For example,
+      <code>text[1-6].txt</code> would match 
+      <code>text1.txt</code>, 
+      <code>text2.txt</code>, ...,
+      <code>text6.txt</code>.</li>
+    <li>The <b>exclamation mark, <code>!</code></b>, which can be used
+      with square brackets to negate characters.  For example,
+      <code>text[!135].txt</code> would match anything of the form
+      <code>text?.txt</code> <em>except</em> for
+      <code>text1.txt</code>,
+      <code>text3.txt</code>, and
+      <code>text5.txt</code>.
+      (Note that the exclamation mark has to be used right after
+      the first square bracket as in the example.  An exclamation
+      mark outside of square brackets is not a wildcard, but
+      serves another function of
+      accessing previous commands from your history, as we will
+      later see.)</li>
+    <li>The <b>curly braces, <code>{}</code></b>, are similar to the square
+      brackets, except that they take a list of items separated by
+      commas, and that they always expand all elements of the list,
+      whether or not the corresponding filenames exist.
+      For example, <code>text{1,5}.txt</code> would expand to
+      <code>text1.txt text5.txt</code> whether or not
+      <code>text1.txt</code> and <code>text5.txt</code> actually
+      exist.
+      The elements of the list need not be single characters, so
+      <code>text{12,5}.txt</code> expands to
+      <code>text12.txt text5.txt</code>.
+      Natural sequences can be specified using <code>..</code>, i.e.
+      <code>text{1..5}.txt</code> would expand to
+      <code>text1.txt text2.txt text3.txt text4.txt text5.txt</code>.</li>
+  </ul>
+
+  <p>
+    We can use any number of wildcards at a time:
+    for example,
+    <code>p*.p?*</code> matches anything that starts with a 'p'
+    and ends with '.', 'p', and at least one more character
+    (since the '?' has to match one character,
+    and the final '*' can match any number of characters).
+    Thus,
+    <code>p*.p?*</code> would match
+    <code>preferred.practice</code>,
+    and even <code>p.pi</code>
+    (since the first '*' can match no characters at all),
+    but not <code>quality.practice</code> (doesn't start with 'p')
+    or <code>preferred.p</code> (there isn't at least one character after the '.p').
+  </p>
+  
+  <p>
+    Let's see some more examples of wildcards in action.  First we will
+    remove everything in the current directory:
+  </p>
+  
+<pre>
+$ <span class="in">rm *</span>
+$ <span class="in">ls</span>
+$
+</pre>
+
+  <p>
+    Now that our working directory is empty, let's create some
+    empty files using the touch command and the curly braces:
+  </p>
+
+<pre>
+$ <span class="in">touch file{4,6,7}.txt file_{a..e}.txt</span>
+$ 
+</pre>
+
+  <p>
+    The curly braces expand the second token <code>file{4,6,7}.txt</code>
+    into three
+    separate file names, and the third token <code>file_{a..e}.txt</code>
+    expands into five separate
+    file names.  So, now if we list files using the asterisk wildcard,
+    we get:
+  </p>
+
+<pre>
+$ <span class="in">ls file*</span>
+<span class="out">file4.txt   file7.txt    file_b.txt   file_d.txt</span>
+<span class="out">file6.txt   file_a.txt   file_c.txt   file_e.txt</span>
+$
+</pre>
+
+  <p>
+    We have matched all files in our current directory that begin
+    with <code>file</code>.  Now, let us list a subset of those files using
+    the question mark:
+  </p>
+
+<pre>
+$ <span class="in">ls file?.txt</span>
+<span class="out">file4.txt   file6.txt    file7.txt</span>
+$
+</pre>
+
+  <p>
+    Note how this glob pattern matched only the numbered files.  That's
+    because only the numbered files have a single character
+    between <code>file</code> and <code>.txt</code>.  The lettered files
+    have two characters between <code>file</code> and <code>.txt</code>:
+  </p>
+
+<pre>
+$ <span class="in">ls file??.txt</span>
+<span class="out">file_a.txt   file_b.txt    file_c.txt   file_d.txt   file_e.txt</span>
+$
+</pre>
+
+  <p>
+    Let's try out using the <code>!</code> wildcard with square brackets. 
+    The pattern <code>file[!46]*</code> would match everything beginning with 
+    "file", <em>unless</em> the next character is a 4 or a 6.  Thus, 
+    continuing with our example, if we do <code>rm file[!46]*</code>, we 
+    will delete everything except <code>file4.txt</code> and 
+    <code>file6.txt</code>:
+  </p>
+
+<pre>
+$ <span class="in">ls</span>
+<span class="out">file4.txt   file7.txt    file_b.txt   file_d.txt</span>
+<span class="out">file6.txt   file_a.txt   file_c.txt   file_e.txt</span>
+$ <span class="in">rm file[!46]*</span>
+$ <span class="in">ls</span>
+<span class="out">file4.txt   file6.txt</span>
+$
+</pre>
+
+  <p>
+    It's also possible to combine and nest wildcards.  For example, 
+    <code>file{4,_?}.txt</code> would match <code>file4.txt</code> 
+    and <code>file_?.txt</code>, where <code>?</code> matches any 
+    single character. To demonstrate this, let's re-create all of 
+    our files:
+  </p>
+
+<pre>
+$ <span class="in">touch file{4,6,7}.txt file_{a..e}.txt</span>
+$ <span class="in">ls</span>
+<span class="out">file4.txt   file7.txt    file_b.txt   file_d.txt</span>
+<span class="out">file6.txt   file_a.txt   file_c.txt   file_e.txt</span>
+$ 
+</pre>
+
+  <p>
+    Now let's run <code>ls file{4,_?}.txt</code>:
+  </p>
+
+<pre>
+$ <span class="in">ls file{4,_?}.txt</span>
+<span class="out">file4.txt   file_b.txt   file_d.txt</span>
+<span class="out">file_a.txt   file_c.txt   file_e.txt</span>
+$
+</pre>
+
+  <p>
+    Finally, it is important to understand what happens if a 
+    wildcard expression doesn't match any files.  In this case, 
+    the wildcard characters are interpreted literally.  For 
+    example, if we were to enter <code>ls file[AB].txt</code>,
+    the system will first try to find <code>fileA.txt</code> or
+    <code>fileB.txt</code>.  If it found either of those, then
+    the wildcard expression would be expanded appropriately, 
+    but when it fails to find either of
+    them, the expression remains unevaluated as
+    <code>file[AB].txt</code>, and is then passed to <code>ls</code>.
+    At this point,
+    <code>ls</code> will try to find a single file that is
+    actually named <code>file[AB].txt</code>.
+    We can see that this is the case if we try
+    <code>ls file[AB].txt</code>:
+  </p>
+
+<pre>
+$ <span class="in">ls file[AB].txt</span>
+<span class="out">ls: file[AB].txt: No such file or directory</span>
+$
+</pre>
+
+  <p>
+    The system tells us that <code>file[AB].txt</code> doesn't exist
+    since this was the file it was looking for after the wildcard
+    expression found no matches.  Still not
+    convinced?  Let's actually create a file named <code>file[AB].txt</code>.
+    To do this, we need some way of telling the computer that we
+    actually want the <code>[</code> and <code>]</code> characters to be in the filename, and
+    that we don't mean them as wildcards.
+  </p>
+
+  <div class="box">
+    <h3>Escaping Special Characters</h3>
+
+    <p>
+      Wildcard characters, like <code>*</code>, <code>[]</code>,
+      and <code>{}</code> are all special characters in bash.  
+      Another example of a special character which we have already
+      encountered, and that is <em>not</em>
+      a wildcard character, is the forward slash <code>/</code>,
+      which is used to delimit directory levels.  It is possible to
+      <em>escape</em> special characters, i.e. turn off their
+      special meanings.
+      We can escape a single character by preceding it with a
+      backslash, <code>\</code>.  This tells the shell to interpret
+      that character literally.
+      For example, writing <code>\/</code>
+      tells bash to interpret the forward slash literally. We can escape
+      more than one character by enclosing a set of characters in
+      either single or double quotes. Single quotes preserve the
+      literal value of each character enclosed.  Double quotes
+      preserve the literal value of each character enclosed with the
+      exception of <code>$</code>, <code>`</code>, and
+      <code>\</code>, which all retain their special meanings. 
+      Therefore, inside double quotes, 
+      backslashes <code>\</code> preceding any of these three special
+      characters will be removed.  Otherwise, the backslash will remain.
+      For the example above of creating a file named
+      <code>file[AB].txt</code>, one can do any of the following:
+      <code>touch "file[AB].txt"</code>,
+      <code>touch 'file[AB].txt'</code>, 
+      <code>touch file\[AB\].txt</code>, or
+      <code>touch "file\[AB\].txt"</code>.
+    </p>
+  </div>
+
+  <p>
+    Now we can create the file <code>file[AB].txt</code>:
+  </p>
+  
+<pre>
+$ <span class="in">touch "file[AB].txt"</span>
+$ <span class="in">ls</span>
+<span class="out">file4.txt   file7.txt      file_a.txt   file_c.txt   file_e.txt</span>
+<span class="out">file6.txt   file[AB].txt   file_b.txt   file_d.txt</span>
+$
+</pre>
+
+  <p>
+    If we do <code>ls file[AB].txt</code>, it will find the
+    file we've just created:
+  </p>
+
+<pre>
+$ <span class="in">ls file[AB].txt</span>
+<span class="out">file[AB].txt</span>
+$
+</pre>
+
+  <p>
+    But if we create a file named <code>fileA.txt</code>,
+    this will be found first by the wildcard expansion,
+    since it first looks for <code>fileA.txt</code> and
+    <code>fileB.txt</code>:
+  </p>
+
+<pre>
+$ <span class="in">touch fileA.txt</span>
+$ <span class="in">ls file[AB].txt</span>
+<span class="out">fileA.txt</span>
+$
+</pre>
+    
+  <p>
+    If we really do want to look for something called
+    <code>file[AB].txt</code>, and not <code>fileA.txt</code>
+    or <code>fileB.txt</code>, then we have to escape the special
+    characters "[" and "]".  We can do this:
+  </p>
+
+<pre>
+$ <span class="in">ls file\[AB\].txt</span>
+<span class="out">file[AB].txt</span>
+$
+</pre>
+
+  <p>
+    or this:
+  </p>
+
+<pre>
+$ <span class="in">ls "file[AB].txt"</span>
+<span class="out">file[AB].txt</span>
+$
+</pre>
+
+  <p>
+    Single quotes would work as well in this case.
+  </p>
+
+</div>
+
+  <h3>Summary</h3>
+  <div id="s:shell:wildcard:keypoints" class="keypoints">
+  <ul>
+    <li>Use wildcards to match filenames.</li>
+    <li><code>*</code> is a wildcard pattern that matches zero or more characters in a pathname.</li>
+    <li><code>?</code> is a wildcard pattern that matches any single character.</li>
+    <li><code>[]</code> and <code>{}</code> allow you to match specified sets of characters in different ways.</li>
+    <li><code>[!<em>characters</em>]</code> matches everything <em>other than</em> the characters specified.</li>
+    <li>Wildcards are useful when performing actions on more than one
+    file at a time.</li>
+    <li>The shell matches wildcards before running commands.</li>
+    <li>We can use wildcard patterns for nearly any command (cp, mv, rm,
+    etc.).</li>
+    <li>Globbing is the process through which wildcard patterns are
+    matched to filenames.</li>
+    <li>You can use multiple wildcard expressions in a single glob.</li>
+  </ul>
+</div>
+
+  <h3>Challenges</h3>
+  <div id="s:shell:wildcard:challenges" class="challenges">
+  <ol>
+    <li><p>
+  In the lesson we started in an empty directory and created 
+  several files using the command:
+</p>
+
+<pre>
+$ <span class="in">touch file{4,6,7}.txt file{a..e}.txt</span>
+$
+</pre>
+
+<p>
+  What files, if any, would have been created if we had instead
+  used square brackets?  I.e.
+</p>
+
+<pre>
+$ <span class="in">touch file[467].txt file[a-e].txt</span>
+$
+</pre>
+</li>
+    <li><p>
+  We also discussed the effect of running
+  <code>ls file[AB].txt</code> when neither the file
+  <code>fileA.txt</code>, nor the file <code>fileB.txt</code>,
+  nor the file <code>file[AB].txt</code> existed.
+  What would be the effect of running
+  <code>ls file{A,B}.txt</code> under these
+  circumstances?
+</p>
+</li>
+    <li><p>
+  Recall the discussion of escaping characters using
+  single quotes, double quotes, and the backslash.
+</p>
+
+<p>
+  What would the output of <code>ls</code> be if we issued the following bash commands?
+</p>
+
+<pre>
+$ <span class="in">touch "apple_file\ orange_file"</span>
+$ <span class="in">touch "apple_file orange_file"</span>
+$
+</pre>
+
+
+</li>
+    <li><p>
+  How can we create the same files as in the previous problem 
+  without any quotes?  Hint: This
+  requires some careful thought about how to apply the backslash
+  notation.  Would single quotes have produced different
+  output files if they were used instead of double quotes
+  in the previous problem?
+</p>
+
+</li>
+  </ol>
+</div>
+
+</section>
+
 <section id="s:shell:pipefilter">
   <h2>Pipes and Filters</h2>
   <h3>Objectives</h3>
   <div id="s:shell:pipefilter:objectives" class="objectives">
   <ul>
-    <li>Write wildcard expressions that select certain subsets of the files in one or more directories.</li>
-    <li>Explain when wildcards are expanded.</li>
     <li>Redirect a command's output to a file.</li>
     <li>Process a file instead of keyboard input using redirection.</li>
     <li>Construct command pipelines with two or more stages.</li>
@@ -1488,8 +2211,9 @@ $ <span class="in">cp intro.txt methods.txt survey.txt</span>
   <div id="s:shell:pipefilter:lesson" class="lesson">
 
   <p>
-    Now that we know a few basic commands,
-    we can finally look at its most powerful feature:
+    Now that we know a few basic commands and have learned how
+    to use wildcards,
+    we can finally look at the shell's most powerful feature:
     the ease with which it lets you combine existing programs in new ways.
     We'll start with a directory called <code>molecules</code>
     that contains six files describing some simple organic molecules.
@@ -1507,10 +2231,8 @@ $
   <p>
     Let's go into that directory with <code>cd</code>
     and run the command <code>wc&nbsp;*.pdb</code>.
-    <code>wc</code> is the "word count" command:
-    it counts the number of lines, words, and characters in files.
-    The <code>*</code> in <code>*.pdb</code> matches zero or more characters,
-    so the shell turns <code>*.pdb</code> into a complete list of <code>.pdb</code> files:
+    <code>wc</code> is the "word count" command;
+    it counts the number of lines, words, and characters in files:
   </p>
 
 <pre>
@@ -1525,51 +2247,6 @@ $ <span class="in">wc *.pdb</span>
  107  819 6081 total</span>
 $
 </pre>
-
-  <div class="box" id="a:wildcard">
-    <h3>Wildcards</h3>
-
-    <p>
-      <code>*</code> is a <a href="glossary.html#wildcard">wildcard</a>.
-      It matches zero or more characters,
-      so <code>*.pdb</code> matches <code>ethane.pdb</code>,
-      <code>propane.pdb</code>,
-      and so on.
-      On the other hand,
-      <code>p*.pdb</code> only matches <code>pentane.pdb</code> and <code>propane.pdb</code>,
-      because the 'p' at the front only matches itself.
-    </p>
-
-    <p>
-      <code>?</code> is also a wildcard,
-      but it only matches a single character.
-      This means that <code>p?.pdb</code> matches <code>pi.pdb</code> or <code>p5.pdb</code>,
-      but not <code>propane.pdb</code>.
-      We can use any number of wildcards at a time:
-      for example,
-      <code>p*.p?*</code> matches anything that starts with a 'p'
-      and ends with '.', 'p', and at least one more character
-      (since the '?' has to match one character,
-      and the final '*' can match any number of characters).
-      Thus,
-      <code>p*.p?*</code> would match
-      <code>preferred.practice</code>,
-      and even <code>p.pi</code>
-      (since the first '*' can match no characters at all),
-      but not <code>quality.practice</code> (doesn't start with 'p')
-      or <code>preferred.p</code> (there isn't at least one character after the '.p').
-    </p>
-
-    <p>
-      When the shell sees a wildcard,
-      it expands it to create a list of filenames
-      <em>before</em> passing those names to whatever command is being run.
-      This means that commands like <code>wc</code> and <code>ls</code> never see the wildcard characters,
-      just what those wildcards matched.
-      This is another example of orthogonal design.
-    </p>
-
-  </div>
 
   <p>
     If we run <code>wc -l</code> instead of just <code>wc</code>,
@@ -1755,7 +2432,7 @@ $
     </p>
 
     <figure id="f:process_stdin_stdout">
-      <img src="shell/process_stdin_stdout.png" alt="A Process with Standard Input and Output" />
+      <img src="../../img/lessons/swc-shell/process_stdin_stdout.png" alt="A Process with Standard Input and Output" />
       <figcaption>Figure 11: A Process with Standard Input and Output</figcaption>
     </figure>
 
@@ -1768,7 +2445,7 @@ $
     </p>
 
     <figure id="f:shell_as_process">
-      <img src="shell/shell_as_process.png" alt="The Shell as a Process" />
+      <img src="../../img/lessons/swc-shell/shell_as_process.png" alt="The Shell as a Process" />
       <figcaption>Figure 12: The Shell as a Process</figcaption>
     </figure>
 
@@ -1781,7 +2458,7 @@ $
     </p>
 
     <figure id="f:running_a_process">
-      <img src="shell/running_a_process.png" alt="Running a Process" />
+      <img src="../../img/lessons/swc-shell/running_a_process.png" alt="Running a Process" />
       <figcaption>Figure 13: Running a Process</figcaption>
     </figure>
 
@@ -1796,7 +2473,7 @@ $
     </p>
 
     <figure id="f:running_wc">
-      <img src="shell/running_wc.png" alt="Running One Program with Redirection" />
+      <img src="../../img/lessons/swc-shell/running_wc.png" alt="Running One Program with Redirection" />
       <figcaption>Figure 14: Running One Program with Redirection</figcaption>
     </figure>
 
@@ -1811,7 +2488,7 @@ $
     </p>
 
     <figure id="f:running_wc_sort">
-      <img src="shell/running_wc_sort.png" alt="Running Two Programs in a Pipe" />
+      <img src="../../img/lessons/swc-shell/running_wc_sort.png" alt="Running Two Programs in a Pipe" />
       <figcaption>Figure 15: Running Two Programs in a Pipe</figcaption>
     </figure>
 
@@ -1824,7 +2501,7 @@ $
     </p>
 
     <figure id="f:running_wc_sort_head">
-      <img src="shell/running_wc_sort_head.png" alt="Running the Full Pipeline" />
+      <img src="../../img/lessons/swc-shell/running_wc_sort_head.png" alt="Running the Full Pipeline" />
       <figcaption>Figure 16: Running the Full Pipeline</figcaption>
     </figure>
 
@@ -1969,8 +2646,8 @@ NENE01971Z.txt    NENE02040Z.txt
       so instead,
       she'll just be careful later on to select files using the wildcard expression
       <code>*[AB].txt</code>.
-      As always, the '*' matches any number of characters;
-      the new expression <code>[AB]</code>
+      As always, the '*' matches any number of characters,
+      and recall from the previous section that <code>[AB]</code>
       matches either an 'A' or a 'B',
       so this matches all the valid data files she has.
     </p>
@@ -1982,10 +2659,6 @@ NENE01971Z.txt    NENE02040Z.txt
   <h3>Summary</h3>
   <div id="s:shell:pipefilter:keypoints" class="keypoints">
   <ul>
-    <li>Use wildcards to match filenames.</li>
-    <li>'*' is a wildcard pattern that matches zero or more characters in a pathname.</li>
-    <li>'?' is a wildcard pattern that matches any single character.</li>
-    <li>The shell matches wildcards before running commands.</li>
     <li><code><em>command</em> &gt; <em>file</em></code> redirects a command's output to a file.</li>
     <li><code><em>first</em> | <em>second</em></code> is a pipeline: the output of the first command is used as the input to the second.</li>
     <li>The best way to use the shell is to use pipes to combine simple single-purpose programs (filters).</li>
@@ -2267,7 +2940,8 @@ UPDATED: 1738-11-24</span>
     the name of the thing currently being operated on
     is assigned to the <a href="glossary.html#variable">variable</a> <code>filename</code>.
     Inside the loop,
-    we get the variable's value by putting <code>$</code> in front of it,
+    we get the variable's value by putting <code>$</code> in front of it
+    (this is known as shell parameter expansion),
     so the first time through the loop,
     <code>$filename</code> is <code>basilisk.dat</code>,
     and the second time,
@@ -2295,7 +2969,10 @@ UPDATED: 1738-11-24</span>
     <p>
       We have called the variable in this loop <code>filename</code>
       in order to make its purpose clearer to human readers.
-      The shell itself doesn't care what the variable is called;
+      The shell itself doesn't care what the variable is called
+      (but when we use the variable value it is a good practice to use
+      <code>${filename}</code> instead of <code>$filename</code> to avoid
+      some types of problems);
       if we wrote this loop as:
     </p>
 
@@ -2435,15 +3112,15 @@ unicorn.dat
 </pre>
 
     <p>
-      The highlighted lands show the problem:
+      The highlighted lines show the problem:
       instead of getting one name <code>red&nbsp;dragon.dat</code>,
       the commands in the loop will get <code>red</code> and <code>dragon.dat</code> separately.
       To make matters worse,
       the file <code>red&nbsp;dragon.dat</code> won't be processed at all.
-      There are ways to get around this,
+      There are ways to get around this, the simplest of which is to put quote marks around <code>"$filename"</code>,
       but the safest thing is to use dashes,
       underscores,
-      or some other printable character instead.
+      or some other printable character instead of spaces in your file names.
     </p>
 
   </div>
@@ -2525,6 +3202,36 @@ mv unicorn.dat original-unicorn.dat
     </p>
 
   </div>
+
+  <p>
+  So far we have been renaming files of the form <code>someanimal.dat</code> to
+  <code>original-someanimal.dat</code>. But, what if instead of
+  <code>original-someanimal.dat</code> we want
+  <code>someanimal.dat.original</code> or <code>someanimal-original.dat</code>?
+  For <code>someanimal.dat.original</code> we can do
+  </p>
+
+<pre>
+for filename in *.dat
+do
+    mv $filename $filename.original
+done
+</pre>
+
+  <p class="continue">
+  But for <code>someanimal-original.dat</code> we will need to go a little deeper
+  in shell parameter expansion and use its find and replace feature. That syntax
+  is <code>${variable/find/substitute/}</code> where <code>find</code> is the
+  longest string in <code>variable</code> value that we want to be replaced by
+  <code>substitute</code>. We can achieve this task using
+  </p>
+
+<pre>
+for filename in *.dat
+do
+    mv $filename ${filename/.dat/-original.dat/}
+done
+</pre>
 
   <div>
     <h3>Nelle's Pipeline: Processing Files</h3>
@@ -2881,6 +3588,31 @@ head -20 cholesterol.pdb | tail -5
     we are putting the commands in a file.
   </p>
 
+  <div class="box">
+    <h3>Text vs. Whatever</h3>
+
+    <p>
+      We usually call programs like Microsoft Word or LibreOffice Writer "text editors"
+      (a more correct name is <a href="http://en.wikipedia.org/wiki/Word_processor">word processor</a>),
+      but we need to be a bit more careful when it comes to programming.
+      By default,
+      Microsoft Word uses <code>.doc</code> (and LibreOffice Writer uses
+      <code>.odt</code>) files to store not only text,
+      but also formatting information about fonts,
+      headings,
+      and so on.
+      This extra information isn't stored as characters,
+      and doesn't mean anything to the shell interpreter:
+      it expects input files to contain nothing but the letters, digits, and punctuation
+      on a standard computer keyboard.
+      When editing programs,
+      therefore,
+      you must either use a plain text editor,
+      or be careful to save files as plain text.
+    </p>
+
+  </div>
+
   <p>
     Once we have saved the file,
     we can ask the shell to execute the commands it contains.
@@ -2901,29 +3633,6 @@ ATOM     18  C           1      -4.705   2.108  -0.396  1.00  0.00</span>
     Sure enough, our script's output is exactly what we would get
     if we ran that pipeline directly.
   </p>
-
-  <div class="box">
-    <h3>Text vs. Whatever</h3>
-
-    <p>
-      We usually call programs like Microsoft Word or LibreOffice Writer "text editors",
-      but we need to be a bit more careful when it comes to programming.
-      By default,
-      Microsoft Word uses <code>.doc</code> files to store not only text,
-      but also formatting information about fonts,
-      headings,
-      and so on.
-      This extra information isn't stored as characters,
-      and doesn't mean anything to the Python interpreter:
-      it expects input files to contain nothing but the letters, digits, and punctuation
-      on a standard computer keyboard.
-      When editing programs,
-      therefore,
-      you must either use a plain text editor,
-      or be careful to save files as plain text.
-    </p>
-
-  </div>
 
   <div class="box">
     <h3>Running Scripts Without Calling Bash</h3>
@@ -3407,7 +4116,7 @@ echo $*.dat
   <div id="s:shell:find:lesson" class="lesson">
 
   <figure id="f:google_vs_grep">
-    <img src="shell/google_vs_grep.png" alt="Google vs. Grep" />
+    <img src="../../img/lessons/swc-shell/google_vs_grep.png" alt="Google vs. Grep" />
     <figcaption>Figure 17: Google vs. Grep</figcaption>
   </figure>
 
@@ -3616,7 +4325,7 @@ Software is like that.
   </p>
 
   <figure id="f:find_file_tree">
-    <img src="shell/find_file_tree.png" alt="Sample Files and Directories" />
+    <img src="../../img/lessons/swc-shell/find_file_tree.png" alt="Sample Files and Directories" />
     <figcaption>Figure 18: Sample Files and Directories</figcaption>
   </figure>
 
