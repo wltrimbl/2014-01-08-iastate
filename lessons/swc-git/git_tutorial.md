@@ -17,20 +17,23 @@ title: Version Control with Git Tutorial
 ##Configure Git and Initialize Repository##
 ---
 
-### Overview ###
-There are several way to initiliaze a git repository. The first is used to initialize git in an existing repository. The second is used to retrieve an existing repository.
+### Review ###
+#### Configuring Git #### 
 
-To initialize a new project, in the project directory, initialize the git repository with:
-```
-git init
-```
+#### Initialize Git Repository ####
+Two ways to initialize a git repository:
+1. Initialize git in an existing repository:
+... To initialize a new project, in the project directory, initialize the git repository with:
+... ```
+... git init
+... ```
+... This will enable git to keep track of changes in this folder, and subfolders by creating a .git hidden folder containing the git skeleton.
 
-This will enable git to keep track of changes in this folder, and subfolders by creating a .git hidden folder containing the git skeleton.
-The second way is:
-```
-git clone https://github.com/username/repo.git
-```
-This will clone the repository containing the documents of this tutorial.
+2. Clone an exiting repository:
+... ```
+... git clone https://github.com/username/repo.git
+... ```
+
 
 ### Exercise: Configrue Git and Initialize Repository ###
 
