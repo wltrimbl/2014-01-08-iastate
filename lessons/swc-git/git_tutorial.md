@@ -1,11 +1,11 @@
 ---
 layout: lesson
 root: ../..
-title: Version Control with Git
+title: Version Control with Git Tutorial
 ---
 
 ## Slides ##
-1. Git Introduction
+1. [Git Introduction](/slides/01-Introduction/01-GitIntroduction.pdf)
 2. Working Locally
 3. Working with Github
 
