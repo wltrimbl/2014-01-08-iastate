@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
+<link href="../../css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="../../css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="../../css/swc.css" />
+<link rel="stylesheet" type="text/css" href="../../css/swc-bootstrap.css" />
+<link rel="alternate" type="application/rss+xml" title="The Software Carpentry Blog" href="/feed.xml"/>
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://software-carpentry.org" title="Software Carpentry">
+    <img alt="Software Carpentry banner" src="../../img/software-carpentry-banner.png" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+          <h1>Similarity Searching</h1>
+          <p>Similarity searching is perhaps the fundamental operation of computational biology; comparisons between known sequences and novel sequences are the bread-and-butter of sequence interpretation.<br>
+You can run BLAST on your laptop, on your department&#39;s server, or via the NCBI web interface.<br>
+BLAST against large databases is an expensive operation, so if your computational plan requires running BLAST a million times, you probably need to re-think your plan.<br>
+For small numbers of sequences and for high-value sequences (contigs, genomes)  BLAST is extremely popular.</p>
+<div class="highlight"><pre><code class="python language-python" data-lang="python">    <span class="kn">from</span> <span class="nn">Bio.Blast</span> <span class="kn">import</span> <span class="n">NCBIWWW</span>
+    <span class="n">mysterysequence</span> <span class="o">=</span> <span class="s">&quot;GCACTTGTCTCCTGTTTACTCCCCTGAGCTTGAGGGGTTAACATGAAGGTCATCGATAGCAGGATAATAATACAGTA&quot;</span>
+    <span class="n">blastresults</span> <span class="o">=</span> <span class="n">NCBIWWW</span><span class="o">.</span><span class="n">qblast</span><span class="p">(</span><span class="s">&quot;blastn&quot;</span><span class="p">,</span> <span class="s">&quot;nr&quot;</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="n">mysterysequence</span> <span class="p">)</span> 
+
+    <span class="n">result_handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;my_blast.xml&quot;</span><span class="p">)</span>
+
+    <span class="kn">from</span> <span class="nn">Bio.Blast</span> <span class="kn">import</span> <span class="n">NCBIXML</span>
+    <span class="n">blast_record</span> <span class="o">=</span> <span class="n">NCBIXML</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">result_handle</span><span class="p">)</span><span class="sb">``</span><span class="err">`</span>
+</code></pre></div><div class="highlight"><pre><code class="text language-text" data-lang="text">from Bio.Blast.Applications import NcbiblastxCommandline
+help(NcbiblastxCommandline)```
+</code></pre></div>
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="https://www.facebook.com/SoftwareCarpentry">Facebook</a>
+  <a class="label swc-blue-bg" href="https://plus.google.com/u/0/114244759874490019250/posts">Google+</a>
+  <a class="label swc-blue-bg" href="https://twitter.com/swcarpentry">Twitter</a>
+  <a class="label swc-blue-bg" href="https://github.com/swcarpentry">GitHub</a>
+  <a class="label swc-blue-bg" href="http://software-carpentry.org/feed.xml">RSS</a>
+  <a class="label swc-blue-bg" href="../../license.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:info@software-carpentry.org?subject=bug%20in%20lessons/misc-biopython/similarity.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../js/jquery-1.9.1.min.js"></script>
+<script src="../../js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>

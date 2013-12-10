@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
+<link href="../../css/bootstrap/bootstrap.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="../../css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="../../css/swc.css" />
+<link rel="stylesheet" type="text/css" href="../../css/swc-bootstrap.css" />
+<link rel="alternate" type="application/rss+xml" title="The Software Carpentry Blog" href="/feed.xml"/>
+<meta http-equiv="last-modified" content="" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+  <a href="http://software-carpentry.org" title="Software Carpentry">
+    <img alt="Software Carpentry banner" src="../../img/software-carpentry-banner.png" />
+  </a>
+</div>
+
+
+      <div class="row-fluid">
+        <div class="span10 offset1">
+          <h1>What to Expect</h1>
+          <p>We have to <strong>get the data</strong>, <strong>get the data out of its container</strong>, and <strong>do something with the data</strong>.  </p>
+
+<h3>Get the data--NCBI&#39;s EUTILS</h3>
+
+<p>One large data source is NCBI.  NCBI provides an interface to allow automated download of various data products using HTTP GET requests.</p>
+
+<p>The documentation for this interface, called EFETCH, is here:
+http://www.ncbi.nlm.nih.gov/books/NBK25499/</p>
+
+<p>Before using EUTILS, we might want to know what kinds of things it can do:</p>
+
+<h5>Search engine for PUBMED:</h5>
+
+<p>http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;term=%22Life+with+6000+genes%22&amp;retmax=100</p>
+
+<h5>Search engine for SRA</h5>
+
+<p>http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=sra&amp;term=SRX015714</p>
+
+<h5>Search engine for Genbank</h5>
+
+<p>http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=nucleotide&amp;term=GFAJ1</p>
+
+<p>Ok, you probably get the picture.  These queries return us lists of IDs that don&#39;t mean anything to us as humans, but that we can iterate over and retrieve automatically.</p>
+
+<p>Once we&#39;ve got lists of identifiers, we can retrieve data:</p>
+
+<h5>Pubmed abstracts:</h5>
+
+<p>This abstract http://www.ncbi.nlm.nih.gov/pubmed/8849441
+can be retrieved in a machine-friendly format with this query:
+http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&amp;id=8849441&amp;rettype=xml</p>
+
+<h5>SRA metadata bundles</h5>
+
+<p>This page of metadata about a dataset from Jeff Gordon&#39;s twin study  http://www.ncbi.nlm.nih.gov/sra/SRX015714 
+can be retrieved from here:
+http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=sra&amp;id=16175</p>
+
+<h5>Genbank records</h5>
+
+<p>Sequence data deposited by authors (with annotations, when provided by authors or the archive itself) can be retrieved in FASTA or genbank formats using the EUTILS suite.  The following URL should retrieve the human mitochondrial reference sequence (NC_012920) in genbank format:
+http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&amp;id=251831106&amp;rettype=gb</p>
+
+<h5>Genome sequences</h5>
+
+<p>The following query will retrieve the genome of Candidatus Hodgkinia cicadicola (REFseq accession NC<em>012960.1) in fasta format:
+http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&amp;id=NC</em>012960.1&amp;rettype=fasta</p>
+
+<p>A table describing the supported formats is here:
+http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly
+Note that these queries return data in several different formats, some return XML-formatted data structures while
+others return files in gb and fasta formats.  Of course, how you handle the data after retrieving
+it is going to depend on the data format.</p>
+
+<p>Biopython has subroutines that take EFETCH&#39;s options and parameters and return python objects.
+This saves us from having to write code that directly talks to NCBI&#39;s EFETCH API, freeing us to spend our time elsewhere.<br>
+We just need to find out how to use these subroutines.</p>
+
+<p>Here is a example using the <code>Entrez.efetch</code>  biopython methods
+```python</p>
+
+<h1>!/usr/bin/env python</h1>
+
+<p>import os,sys
+from Bio import Entrez
+from Bio import SeqIO</p>
+
+<p>def downloadstuff(accessionno):
+    filename = &quot;%s.gbk&quot; % accessionno<br>
+    print &quot;Trying efectch on %s, writing to %s&quot; % ( accessionno, filename )
+    if not os.path.isfile(filename):<br>
+        net<em>handle = Entrez.efetch(db=&quot;nucleotide&quot;,id=accessionno,rettype=&quot;gb&quot;, retmode=&quot;text&quot;)
+        out</em>handle = open(filename, &quot;w&quot;)
+        out<em>handle.write(net</em>handle.read() )
+        out<em>handle.close()
+        net</em>handle.close()
+    else:
+        print &quot;skipping, %s already exists!&quot; % filename</p>
+
+<p>Entrez.email = &quot;trimble@example.com&quot;        #  Always tell NCBI who you are.<br>
+Entrez.tool = &quot;SoftwareCarpentryBootcamp&quot;</p>
+
+<p>accession = sys.argv[1]     # take the first program argument</p>
+
+<p>downloadstuff(accession)<br>
+```</p>
+
+<p>Exercise:
+<code>ladyslipperITSaccessionnumbers.txt</code> contains 94 accession numbers for the ITS ribosomal marker sequences of certain lady slipper orchids.
+See if you can modify the recipe above to use FASTA format (instead of genbank format) and then find a way to download all 94 sequences.  Once you have the sequences, you can concatenate them and run your favorite multiple-sequence-alignment program.</p>
+
+<h3>High-throughput data--getting it</h3>
+
+<p>High-throughput sequencing datasets range in size from a few megabytes to a few hundreds of gigabytes in size.<br>
+Some institutions make raw sequence data available by FTP, but the sequence archive is the largest sequence data warehouse.</p>
+
+<p>The NCBI offers a guide to downloading data here http://www.ncbi.nlm.nih.gov/books/NBK47540/
+which includes links to downloading the <em>SRA toolkit</em>: http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=std</p>
+
+<p>The sequence read archive maintains its own formats, and its own libary of programs to get data out of the SRA format.  The options for the utilities (and the formats themselves) change from time to time, so if something doesn&#39;t work, the first thing the help desk will ask you to do is update your copy of the sra toolkit.
+wget ftp://ftp.ncbi.nih.gov/sra/sra-instant/reads/ByRun/litesra/SRR/SRR036/SRR036919/SRR036919.sra </p>
+
+<p>PhiX control lane, described at:
+http://www.ncbi.nlm.nih.gov/sra/SRX017204
+SRR036919
+We can download from here 
+wget ftp://ftp.ncbi.nih.gov/sra/sra-instant/reads/ByRun/litesra/SRR/SRR036/SRR036919/SRR036919.sra </p>
+
+	</div>
+      </div>
+
+      <div class="footer">
+  <a class="label swc-blue-bg" href="https://www.facebook.com/SoftwareCarpentry">Facebook</a>
+  <a class="label swc-blue-bg" href="https://plus.google.com/u/0/114244759874490019250/posts">Google+</a>
+  <a class="label swc-blue-bg" href="https://twitter.com/swcarpentry">Twitter</a>
+  <a class="label swc-blue-bg" href="https://github.com/swcarpentry">GitHub</a>
+  <a class="label swc-blue-bg" href="http://software-carpentry.org/feed.xml">RSS</a>
+  <a class="label swc-blue-bg" href="../../license.html">License</a>
+  <a class="bugreport label swc-blue-bg" href="mailto:info@software-carpentry.org?subject=bug%20in%20lessons/misc-biopython/eutils.md">Bug Report</a>
+</div>
+
+    </div>
+    <!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../js/jquery-1.9.1.min.js"></script>
+<script src="../../js/bootstrap/bootstrap.min.js"></script>
+
+  </body>
+</html>
