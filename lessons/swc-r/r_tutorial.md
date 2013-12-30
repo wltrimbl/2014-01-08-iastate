@@ -33,9 +33,10 @@ Before we start this tutorial, please make sure to install R on your local machi
 
 There is a help function in R, and also a web-based help interface that allows easier searching and other functionality. 
 
-The function ```help.start()``` opens a web-based interface that is a good place to start for general help.
+The function `help.start()` opens a web-based interface that is a good place to start for general help.
 
 If you need help understanding how to use a particular function, for example ```median()```, use the following commands:
+
 ```
 > help(median)    # help about function median
 > ?median         # help about function median
