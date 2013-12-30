@@ -3,6 +3,7 @@ layout: lesson
 root: ../..
 title: ISU Bootcamp: R Tutorial
 ---
+
 ## Outline
 
 1. R Basics
