@@ -36,11 +36,11 @@ There is a help function in R, and also a web-based help interface that allows e
 The function ```help.start()``` opens a web-based interface that is a good place to start for general help.
 
 If you need help understanding how to use a particular function, for example ```median()```, use the following commands:
-<pre>
+```
 > help(median)    # help about function median
 > ?median         # help about function median
 > example(median) # example of function median
-</pre>
+```
 
 ####Packages
 
@@ -57,7 +57,7 @@ lists those packages that are <i>loaded</i>. Output of these commands will vary 
 on the installation.
 
 To install a package, use the ```install.packages()``` function:
-<pre>
+```
 > install.packages("vegan")
 Installing package(s) into ‘/Library/Frameworks/R.framework/Versions/2.15/Resources/library’
 (as ‘lib’ is unspecified)
@@ -70,10 +70,10 @@ downloaded 2.3 Mb
 
 The downloaded binary packages are in
 	/var/folders/_x/wbqc14lj1x7d6602h5nxr55m0000gn/T//RtmprP5Wvc/downloaded_packages
-</pre>
+```
 
 To load a package, use the ```library()``` function:
-<pre>
+```
 > search()
  [1] ".GlobalEnv"        "tools:rstudio"     "package:stats"     "package:graphics"  "package:grDevices" "package:utils"     "package:datasets"  "package:methods"  
  [9] "Autoloads"         "package:base" 
@@ -87,7 +87,7 @@ package ‘vegan’ was built under R version 2.15.3
 > search()
  [1] ".GlobalEnv"        "package:vegan"     "package:permute"   "tools:rstudio"     "package:stats"     "package:graphics"  "package:grDevices" "package:utils"    
  [9] "package:datasets"  "package:methods"   "Autoloads"         "package:base"  
-</pre>
+```
 
 
 ---
@@ -128,14 +128,14 @@ count shown below:
 
 A <b>vector</b> can be thought of as a way to store the values of one variable. For example, we can create a <b>vector</b>
 of all of the genome sizes:
-<pre>
+```
 > Genome_Size = c(5650368, 2260266, 2488635, 2476822, 1590791, 5241700, 4433218, 2414465, 1225935, 2572079, 
 +	              2154946, 1469720, 1395502, 3284156, 4202352, 5314794, 2401520, 1197687, 1471282, 4727255, 
 +                 1519856, 723970)
 > Genome_Size
  [1] 5650368 2260266 2488635 2476822 1590791 5241700 4433218 2414465 1225935 2572079 2154946 1469720 1395502
 [14] 3284156 4202352 5314794 2401520 1197687 1471282 4727255 1519856  723970
-</pre>
+```
 
 Notice a few things:
 
@@ -149,7 +149,7 @@ Notice a few things:
 
 It is important to note that objects in R are case sensitive:
 
-<pre>
+```
 > Genome_size
 Error: object 'Genome_size' not found
 > genome_size
@@ -157,21 +157,21 @@ Error: object 'genome_size' not found
 > genome_Size
 Error: object 'genome_Size' not found
 >
-</pre>
+```
 
 Let's make another data vector for ```Gene_Count```:
-<pre>
+```
 > Gene_Count = c(4837,1805,2395,2186,1613,4403,3843,2079,1157,2100,2317,1647,
 +                 1517,3249,4239,5452,2738,1006,1335,4686,1690,734)
 > Gene_Count
  [1] 4837 1805 2395 2186 1613 4403 3843 2079 1157 2100 2317 1647 1517 3249 4239 5452 2738 1006 1335 4686 1690
 [22]  734
 >
-</pre>
+```
 
 The ```Genome_Size``` vector contains all numbers, or numericals. Data vectors can also contain character data or logical data. For example, if we wanted a vector containing the phyla for each of the genomes we are interested in:
 
-<pre>
+```
 > Phyla = c("Acidobacteria","Actinobacteria","Actinobacteria","Actinobacteria","Aquificae",
 +           "Bacteroidetes","Bacteroidetes", "Chlamydiae","Chlamydiae","Chlorobi","Chlorobi","Chloroflexi",
 +           "Chloroflexi","Deinococcus-Thermus", "Firmicutes","Firmicutes","Firmicutes","Proteobacteria",
@@ -183,12 +183,12 @@ The ```Genome_Size``` vector contains all numbers, or numericals. Data vectors c
 [13] "Chloroflexi"         "Deinococcus-Thermus" "Firmicutes"          "Firmicutes"         
 [17] "Firmicutes"          "Proteobacteria"      "Proteobacteria"      "Proteobacteria"     
 [21] "Spirochaetes"        "Tenericutes"        
-</pre>
+```
 
 Note that the values are specified in quotes, telling R that these are <b>character</b> values.
 
 Importantly, data vectors can only hold <i>one</i> type of data value. For example, we can have a vector that holds both numeric values and character values. For example, suppose we tried to concatenate the two data vectors ```Phyla``` and ```Genome_Size``` into a vector called ```Combined_Data```:
-<pre>
+```
 > Combined_Data = c(Phyla, Genome_Size)
 > Combined_Data
  [1] "Acidobacteria"       "Actinobacteria"      "Actinobacteria"      "Actinobacteria"     
@@ -202,12 +202,12 @@ Importantly, data vectors can only hold <i>one</i> type of data value. For examp
 [33] "2154946"             "1469720"             "1395502"             "3284156"            
 [37] "4202352"             "5314794"             "2401520"             "1197687"            
 [41] "1471282"             "4727255"             "1519856"             "723970"             
-</pre>
+```
 
 If vectors of different types are combined as in the example above, R will change them all to one type (known as <i>value coercion</i>). We can see here that R forced all of the numeric values for Genome_Size to character values, indicated by the quotes. The output type is determined from the highest type of the components in the hierarchy: ```raw < logical < integer < double < complex < character < list```.
 
 You can always tell what data type is by using the ```class``` function:
-<pre>
+```
 > class(Phyla)
 [1] "character"
 > class(Genome_Size)
@@ -217,14 +217,14 @@ You can always tell what data type is by using the ```class``` function:
 > class(Combined_Data)
 [1] "character"
 >
-</pre>
+```
 
 #####Matrices
 So far, we have created three vector objects, ```Phyla```, ```Genome_Size```, and ```Gene_Count```. It would be nice to have a data structure that could hold more than one variable. <b>Matrices</b> are one such structure. The R functions ```matrix()```, ```rbind()```, and ```cbind()```, are all useful for creating matrices. 
 
 First, we will use the ```matrix()``` function to create a matrix with four rows and three columns containing the integers from 1 through 12. (Rather than typing the 12 numbers explicitly, we will use <i>series</i> notation ```1:12```, which returns all twelve numbers - more on this later.)
 
-<pre>
+```
 > mat1 = matrix(data = 1:12, nrow = 4, ncol = 3)
 > mat1
      [,1] [,2] [,3]
@@ -233,7 +233,7 @@ First, we will use the ```matrix()``` function to create a matrix with four rows
 [3,]    3    7   11
 [4,]    4    8   12
 
-</pre>
+```
 
 
 Note that we specied the values to be entered in the matrix via the ```data``` argument,
@@ -243,7 +243,7 @@ argument.
 In ```mat1``` the matrix was filled "by column," i.e., the first column was filled with thefirst four numbers, the second column was filled with the next four numbers, etc. We
 can change this behavior by using the by row argument:
 
-<pre>
+```
 > mat2 = matrix(data = 1:12, nrow = 4, ncol = 3, byrow = T)
 > mat2
      [,1] [,2] [,3]
@@ -251,10 +251,10 @@ can change this behavior by using the by row argument:
 [2,]    4    5    6
 [3,]    7    8    9
 [4,]   10   11   12
-</pre>
+```
 
 Now, let's make a matrix with the genome size and gene count data that we have currently in vector form. To do this we will use a combination of the ```matrix()``` and ```c()``` functions:
-<pre>
+```
 > Genome_Numbers = matrix(data = c(Genome_Size, Gene_Count), nrow = 22)
 > Genome_Numbers
          [,1] [,2]
@@ -280,13 +280,13 @@ Now, let's make a matrix with the genome size and gene count data that we have c
 [20,] 4727255 4686
 [21,] 1519856 1690
 [22,]  723970  734
-</pre>
+```
 
 This syntax can be a little tricky, because what is is first doing is <i>concatinating</i> the ```Genome_Size``` and ```Gene_Count``` vectors into one long vector of length 44 and <i>then</i> it is filling a matrix <i>by column</i> up to 22 rows. 
 
 The ```rbind()``` and ```cbind()``` function provide a somewhat easier and more intuitive way to join together several equal length vectors into a matrix:
 
-<pre>
+```
 > Genome_Numers2 = cbind(Genome_Size, Gene_Count)
 > Genome_Numers2
       Genome_Size Gene_Count
@@ -322,13 +322,13 @@ Gene_Count     4837    1805    2395    2186    1613    4403    3843    2079    1
 Genome_Size 1395502 3284156 4202352 5314794 2401520 1197687 1471282 4727255 1519856 723970
 Gene_Count     1517    3249    4239    5452    2738    1006    1335    4686    1690    734
 
-</pre>
+```
 
 Note one difference here: the column names or the row names are now the names of the original vectors.
 
 Again, it is important to note that all elements of matrices are requred to be the same type (just as vectors):
 
-<pre>
+```
 > Genomes = cbind(Phyla,Genome_Size, Gene_Count)
 > Genomes
       Phyla                 Genome_Size Gene_Count
@@ -354,13 +354,13 @@ Again, it is important to note that all elements of matrices are requred to be t
 [20,] "Proteobacteria"      "4727255"   "4686"    
 [21,] "Spirochaetes"        "1519856"   "1690"    
 [22,] "Tenericutes"         "723970"    "734"  
-</pre>
+```
 
 #####Data Frames
 
 Data frames are the most common way to organize several variables in a data set. Unlike matrices and vectors, the variables don't have to all be of the same type. Let's make a data frame containing all of the genome data:
 
-<pre>
+```
 > Genomes.data = data.frame(Phyla, Genome_Size, Gene_Count)
 > Genomes.data
                  Phyla Genome_Size Gene_Count
@@ -387,21 +387,21 @@ Data frames are the most common way to organize several variables in a data set.
 21        Spirochaetes     1519856       1690
 22         Tenericutes      723970        734
 
-</pre>
+```
 
 Note that here ```Phyla``` has been converted from ```character``` to ```factor```. We can see this by looking at the structure of the object using ```str()```:
 
-<pre>
+```
 > str(Genomes.data)
 'data.frame':	22 obs. of  3 variables:
  $ Phyla      : Factor w/ 12 levels "Acidobacteria",..: 1 2 2 2 3 4 4 5 5 6 ...
  $ Genome_Size: num  5650368 2260266 2488635 2476822 1590791 ...
  $ Gene_Count : num  4837 1805 2395 2186 1613 …
-</pre>
+```
 
 We haven't talked about ```factors``` yet, but they are useful for handling nominal and ordered <i>categorical</i> data.  To avoid this you can set the ```stringsAsFactors``` argument to ```FALSE```:
 
-<pre>
+```
 > Genomes.data = data.frame(Phyla, Genome_Size, Gene_Count, stringsAsFactors=FALSE)
 > Genomes.data
                  Phyla Genome_Size Gene_Count
@@ -432,7 +432,7 @@ We haven't talked about ```factors``` yet, but they are useful for handling nomi
  $ Phyla      : chr  "Acidobacteria" "Actinobacteria" "Actinobacteria" "Actinobacteria" ...
  $ Genome_Size: num  5650368 2260266 2488635 2476822 1590791 ...
  $ Gene_Count : num  4837 1805 2395 2186 1613 ...
-</pre>
+```
 
 At this point you may wonder why R has matrices, since a data frame seems a lot like
 a matrix, but allows different types of variables. But R has powerful matrix functions
@@ -447,49 +447,49 @@ Data analysis often requires selecting and possibly altering specific variables,
 
 Selecting specific elements of vectors and matrices is simple. Let's use the vector ```Genome_Size``` as example:
 
-<pre>
+```
 > Genome_Size
  [1] 5650368 2260266 2488635 2476822 1590791 5241700 4433218 2414465 1225935 2572079 2154946 1469720 1395502 3284156 4202352 5314794 2401520 1197687 1471282 4727255
 [21] 1519856  723970
-</pre>
+```
 
 We can select an individual element from the vector:
-<pre>
+```
 > Genome_Size[2]
 [1] 2260266
-</pre>
+```
 
 We can select the last element or the second to last element from the vector:
-<pre>
+```
 > length(Genome_Size)  # returns the length of the vector
 [1] 22
 > Genome_Size[length(Genome_Size)]
 [1] 723970
 > Genome_Size[length(Genome_Size)-1]
 [1] 1519856
-</pre>
+```
 
 We can select the entire vector, removing certain elements:
-<pre>
+```
 > Genome_Size[-1]
  [1] 2260266 2488635 2476822 1590791 5241700 4433218 2414465 1225935 2572079 2154946 1469720 1395502 3284156 4202352 5314794 2401520 1197687 1471282 4727255 1519856
 [21]  723970
-</pre>
+```
 
 We can select multiple elements from the vector:
-<pre>
+```
 > Genome_Size[1:5]
 [1] 5650368 2260266 2488635 2476822 1590791
-</pre>
+```
 
 Or remove multiple elements from the vector:
-<pre>
+```
 > Genome_Size[-c(1:5)]
  [1] 5241700 4433218 2414465 1225935 2572079 2154946 1469720 1395502 3284156 4202352 5314794 2401520 1197687 1471282 4727255 1519856  723970
-</pre>
+```
 
 Next, let's look at subscripting using a matrix as an example:
-<pre>
+```
 > Genome_Numbers
          [,1] [,2]
  [1,] 5650368 4837
@@ -514,38 +514,38 @@ Next, let's look at subscripting using a matrix as an example:
 [20,] 4727255 4686
 [21,] 1519856 1690
 [22,]  723970  734
-</pre>
+```
 
 Selecting a single element in matrices always uses the notation ```matrix[row,column]```:
-<pre>
+```
 > Genome_Numbers[1,2] # Returns the gene count of the first genome
 [1] 4837
-</pre>
+```
 
 We can return series of numbers, just as in vectors:
-<pre>
+```
 > Genome_Numbers[1:5,2] # Returns the gene counts of the first five genomes
 [1] 4837 1805 2395 2186 1613
-</pre>
+```
 
 We can select an indivudal row or column (note that this returns a vector):
-<pre>
+```
 > Genome_Numbers[1,] # Return information on first Genome
 [1] 5650368    4837
 > Genome_Numbers[,1] # Return all genome sizes
  [1] 5650368 2260266 2488635 2476822 1590791 5241700 4433218 2414465 1225935 2572079 2154946 1469720 1395502 3284156 4202352 5314794 2401520 1197687 1471282 4727255
 [21] 1519856  723970
-</pre>
+```
 
 We can also select using the '-' notation like before:
-<pre>
+```
 > Genome_Numbers[1,-2]
 [1] 5650368
-</pre>
+```
 
 Subscripting on ```data frames``` works the exact same way, except you can also select an element referring to the columns or rows by name. For example:
 
-<pre>
+```
 > Genomes.data
                  Phyla Genome_Size Gene_Count
 1        Acidobacteria     5650368       4837
@@ -606,11 +606,11 @@ Subscripting on ```data frames``` works the exact same way, except you can also 
 3 Actinobacteria       2395
 4 Actinobacteria       2186
 5      Aquificae       1613
-</pre>
+```
 
 Data frames also can use the "dollar sign operator" to extract entire vectors:
 
-<pre>
+```
 > Genomes.data$Phyla
  [1] "Acidobacteria"       "Actinobacteria"      "Actinobacteria"      "Actinobacteria"      "Aquificae"           "Bacteroidetes"       "Bacteroidetes"      
  [8] "Chlamydiae"          "Chlamydiae"          "Chlorobi"            "Chlorobi"            "Chloroflexi"         "Chloroflexi"         "Deinococcus-Thermus"
@@ -619,44 +619,44 @@ Data frames also can use the "dollar sign operator" to extract entire vectors:
 
 > Genomes.data$Phyla[1:5]
 [1] "Acidobacteria"  "Actinobacteria" "Actinobacteria" "Actinobacteria" "Aquificae"   
-</pre>
+```
 
 ####R Workspace and Working Directory
 
 Before we go any further, let's talk about the <i>R workspace</i>. During an R session, objects are create and stored by name. The collections of objects currently stored is refered to as the <i>workspace</i>. To display all of the objects currently in the workspace use the function ```ls()```:
-<pre>
+```
 > ls()
  [1] "Gene_Count"     "Genome_Data"    "Genome_Numbers" "Genome_Numers2" "Genome_Numers3" "Genome_Size"    "Genomes"        "Genomes.data"   "mat1"           "mat2"           "Phyla"   
-</pre>
+```
 
 You can remove objects from your workspace using the ```rm()``` function:
-<pre>
+```
 > rm(mat1,mat2)
 
 > ls()
 [1] "Gene_Count"     "Genome_Data"    "Genome_Numbers" "Genome_Numers2" "Genome_Numers3" "Genome_Size"    "Genomes"        "Genomes.data"   "Phyla"  
-</pre>
+```
 
 All of the objects in workspace can be stored permanently in a file for use in future R sessions in a ```.RData``` file. You can do this using the ```save.image()``` function. In a future R session, you can then load the workspace using the ```load()``` function:
-<pre>
+```
 > save.image("img_genomes.RData")
 > load("img_genomes.RData")
-</pre>
+```
 
 It is important to note that when saving your workspace using the ```save.image()``` function, if you don't use a full path, it will save it to your current <i>working directory</i>. This is just the path where R thinks you are working. You can check where your current working directory is using ```getwd()```:
 
-<pre>
+```
 > getwd()
 [1] "/Users/mgibson"
-</pre>
+```
 
 and you can set your working directory using ```setwd()```:
 
-<pre>
+```
 > setwd("/Users/mgibson/Documents/swcarpentry/2014-01-08-iastate/lessons/swc-r/data/")
 > getwd()
 [1] "/Users/mgibson/Documents/swcarpentry/2014-01-08-iastate/lessons/swc-r/data"
-</pre>
+```
 
 
 ####Data I/O
@@ -666,7 +666,7 @@ Up until now, we have been importing data into R using the command line interfac
 The ```read.table()``` funciton is the workhorse for reading data into R. At its simplest, the user need only specify the name of the file containing the data. Note that the file may be specified, for example, via a URL. The function ```read.table()``` always creates a data frame.
 
 For example, we had been working with a small subset of the genome metadata from IMG. If we wanted to load the entire table to work with, we could do so using the ```read.table()``` function:
-<pre>
+```
 > microbial_genomes = read.table("http://cgs.wustl.edu/~mgibson/swc/microbial_genome.txt", header=T, sep="\t")
 > microbial_genomes[1:5,1:5]
       IMG_ID   Domain Genome_Status                  Sequencing_Center         Phylum
@@ -675,7 +675,7 @@ For example, we had been working with a small subset of the genome metadata from
 3  649633017 Bacteria      Finished                      Univ of Tokyo Actinobacteria
 4 2537561578 Bacteria         Draft Washington University in St. Louis Actinobacteria
 5 2531839161 Bacteria         Draft                   Univ of Maryland     Firmicutes
-</pre> 
+``` 
 
 The first argument specifies the location of the file, in this case it is a URL pointing to a file on a web server. The second argument, ```header=T``` tells R that the first line of the file contains variable names. The third argument tells R what character separates fields for an observation. The default for this is any blank space. This can also be useful if you want to read in ```.csv``` files as you can set ```sep=","```. 
 
@@ -683,9 +683,9 @@ Again, by default ```read.table()``` converts character variables into factors. 
 
 The funciton ```write.table()``` is the export counterpart to ```read.table()```. For example, if we wanted to then write the data frame we just imported to a file, we could do:
 
-<pre>
+```
 > write.table(microbial_genomes, "microbial_genomes.txt", sep="\t", row.names = F)
-</pre>
+```
 
 This will write the data frame ```img_genomes``` to the files ```img_genomes.txt``` and fields will be separated by ```"\t"
 ```. The last argument is important if the rows for your data frame are not named, the default for ```rows.names = T```.
@@ -701,37 +701,37 @@ R has all of the same control structures as most programming languages, includin
 #####Iteration and Looping
 
 The ``for`` loop can be used to do something <i>for</i> all items in a vector or list:
-<pre>
+```
 for (item in a_vector){
 	# operate on item
 }
-</pre>
+```
 
 The ``while`` loop can be used for doing something <i>while</i> a logical statement is TRUE:
-<pre>
+```
 while (condition){
 	# do something
 	# update condition
 }
-</pre>
+```
 
 #####Branching and Conditional Statements
 Conditional statments allow us to execute a branch of code <i>if</i> a certain condition is satisfied. They also may include an <i>else</i> branch to be executed if the condition is not satisfied. 
 
 This is done with an ``if`` statement and in R it looks like this:
-<pre>
+```
 if (condition) {
   ...
 }
 else {
   ...
 }
-</pre>
+```
 
 The ```ifelse``` statement can operate on objects of variable length:
-<pre>
+```
 ifelse(test, true_value, false_value)
-</pre>
+```
 
 The condition is what we want to test if is TRUE and that is often done using <b>locginal comparisons</b>:
 
@@ -758,7 +758,7 @@ Using the ```microbial_genomes``` data frame that we imported using ```read.tabl
 
 One way we could do this is looping through all of the rows in the data frame and acting on each one of them independently:
 
-<pre>
+```
 > proteo_counts <- vector()
 > actino_counts <- vector()
 > for (entry_num in 1:length(microbial_genomes[,1])){
@@ -773,16 +773,16 @@ One way we could do this is looping through all of the rows in the data frame an
 [1] 4113.335
 > mean(actino_counts)
 [1] 4232.623
-</pre>
+```
 
 
 ####Functions
 Functions are blocks of code that allows R to be modular and facilitate code reuse. An R programmer can define their own function as follows:
-<pre>
+```
 function_name <- function([arg1], [arg2],…){
 	# function code body
 }
-</pre>
+```
 
 Function arguments are the variables passed to the function, used by the function's code to perform clculations. 
 
@@ -792,7 +792,7 @@ A function can also return any object using the ```return(object)``` statement.
 
 For example, let's wrap the piece of code that we wrote above into a function, so that we can calculate the average gene count for any phylum:
 
-<pre>
+```
 average_gene_count <- function(microbial_genomes, phyla){
 	counts <- vector()
 	for (entry_num in 1:length(microbial_genomes[,1])){
@@ -802,14 +802,14 @@ average_gene_count <- function(microbial_genomes, phyla){
 	}
 	return(mean(counts))
 }
-</pre>
+```
 
 We can now use this piece of code over and over again by just calling the funciton ```average_gene_count()``` and passing it the 
 microbial_genomes dataset and the phyla we are interested in:
-<pre>
+```
 > average_gene_count(microbial_genomes, phyla="Proteobacteria")
 [1] 4113.335
-</pre>
+```
 
 ---
 ### <font color='red'>Challenge Exercises</font>
