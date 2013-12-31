@@ -105,7 +105,7 @@ from the [Integrated Microbial Genomes (IMG)](http://img.jgi.doe.gov/) database.
 
 
 | IMG_ID    | Phylum              | Genome_Size | Gene_Count |
-|-----------|---------------------|-------------|------------|
+|-----------|---------------------|-------------:|------------:|
 | 637000001 | Acidobacteria       | 5650368     | 4837       |
 | 637000031 | Actinobacteria      | 2260266     | 1805       |
 | 637000082 | Actinobacteria      | 2488635     | 2395       |
