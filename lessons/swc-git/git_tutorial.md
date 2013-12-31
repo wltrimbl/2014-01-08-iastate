@@ -1,18 +1,22 @@
 ---
 layout: lesson
 root: ../..
-title: Version Control with Git Tutorial
+title: ISU Bootcamp Git Tutorial
 ---
+## Outline
 
-1. Git Inroduction ([slides](http://mollygibson.github.io/2014-01-08-iastate/lessons/swc-git/slides/01-Introduction/01-GitIntroduction.pdf))
+1. Git Inroduction and Working Locally ([slides](http://mollygibson.github.io/2014-01-08-iastate/lessons/swc-git/slides/01-Introduction/01-GitIntroduction.pdf))
    * [Exercise 1: Download and Install Git](#install) 
    * [Exercise 2: Configure Git and Initialize Repository](#configure-git-and-initialize-repository)
-2. Working Locally (slides)
    * [Exercise 3: Local Git Workflow](#local-git-workflow)
 3. Working with Github (slides)
    * [Exercise 4: Collaborate on Github Project](#collaborate-on-github)
 4. Branching and Merging (slides) 
    * [Exercise 5: Branch and Merge](#branch-merge)
+
+Resources
+
+Vocabulary
 
 ### <a name="install"></a>Exercise 1: Download and Install Git
 #### Windows
@@ -86,12 +90,12 @@ $ ls -a
 This directory stores information about our project in this directory. If you ever delete it, you will lose the history of your project. 
 
 ---
-### <a name="local-git-workflow"></a> Exercise 3: Local Git Workflow 
+### <a name="local-git-workflow"></a> Exercise 3: Working Locally with Git 
 
 
-Remember the git file workflow:
+Remember the git file workflow! 
 
-![lifecycle](imgs/git_workflow.png)
+This is a great interactive [Git cheatsheet](http://ndpsoftware.com/git-cheatsheet.html) to figure out what commands to use for what you want. <b>It will be overwhelming right now! Stick to the <i>workspace</i>, <i>index</i>, and <i>local repository</i> (we will talk about the upstream repository soon)!</b> 
 
 
 1. Create an AUTHORS file, a TODO file, and a README file in the `git_tutorial` repository you created in the last exercise.

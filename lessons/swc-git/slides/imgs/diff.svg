@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="612px" height="792px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
+<path fill="#ABCC9B" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M188.75,381.316c0,6.627-5.225,12-11.67,12H23.42
+	c-6.445,0-11.67-5.373-11.67-12v-47c0-6.627,5.225-12,11.67-12h153.66c6.445,0,11.67,5.373,11.67,12V381.316z"/>
+<path fill="#FCF6B6" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M387.75,381.316c0,6.627-5.225,12-11.67,12
+	H222.42c-6.445,0-11.67-5.373-11.67-12v-47c0-6.627,5.225-12,11.67-12h153.66c6.445,0,11.67,5.373,11.67,12V381.316L387.75,381.316z
+	"/>
+<path fill="#9DCDC9" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M586.5,381.316c0,6.627-5.225,12-11.67,12H421.17
+	c-6.445,0-11.67-5.373-11.67-12v-47c0-6.627,5.225-12,11.67-12h153.66c6.445,0,11.67,5.373,11.67,12V381.316z"/>
+<rect x="21.25" y="393.316" fill="#E6E7E8" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="158" height="192"/>
+<rect x="220.125" y="393.316" fill="#E6E7E8" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="158" height="192"/>
+<rect x="419" y="393.316" fill="#E6E7E8" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="158" height="192"/>
+<text transform="matrix(1 0 0 1 57.7827 350.3159)" font-family="'MyriadPro-Regular'" font-size="24">Working</text>
+<text transform="matrix(1 0 0 1 54.0029 379.1157)" font-family="'MyriadPro-Regular'" font-size="24">Directory</text>
+<text transform="matrix(1 0 0 1 273.6084 350.3159)" font-family="'MyriadPro-Regular'" font-size="24">Stage</text>
+<text transform="matrix(1 0 0 1 267.3203 379.1157)" font-family="'MyriadPro-Regular'" font-size="24">(Index)</text>
+<text transform="matrix(1 0 0 1 471.7559 350.3159)" font-family="'MyriadPro-Regular'" font-size="24">Local</text>
+<text transform="matrix(1 0 0 1 444.4209 379.1157)" font-family="'MyriadPro-Regular'" font-size="24">Repository</text>
+<g>
+	<line fill="none" x1="100.25" y1="393.316" x2="100.25" y2="585.316"/>
+	<g>
+		<line fill="none" stroke="#6D6E71" stroke-width="4" stroke-miterlimit="10" x1="100.25" y1="393.316" x2="100.25" y2="399.316"/>
+		
+			<line fill="none" stroke="#6D6E71" stroke-width="4" stroke-miterlimit="10" stroke-dasharray="12,12" x1="100.25" y1="411.316" x2="100.25" y2="573.316"/>
+		<line fill="none" stroke="#6D6E71" stroke-width="4" stroke-miterlimit="10" x1="100.25" y1="579.316" x2="100.25" y2="585.316"/>
+	</g>
+</g>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#6D6E71" stroke-width="4" stroke-miterlimit="10" x1="299.125" y1="393.316" x2="299.125" y2="399.316"/>
+		
+			<line fill="none" stroke="#6D6E71" stroke-width="4" stroke-miterlimit="10" stroke-dasharray="12,12" x1="299.125" y1="411.316" x2="299.125" y2="573.316"/>
+		
+			<line fill="none" stroke="#6D6E71" stroke-width="4" stroke-miterlimit="10" x1="299.125" y1="579.316" x2="299.125" y2="585.316"/>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#6D6E71" stroke-width="4" stroke-miterlimit="10" x1="498" y1="393.316" x2="498" y2="399.316"/>
+		
+			<line fill="none" stroke="#6D6E71" stroke-width="4" stroke-miterlimit="10" stroke-dasharray="12,12" x1="498" y1="411.316" x2="498" y2="573.316"/>
+		<line fill="none" stroke="#6D6E71" stroke-width="4" stroke-miterlimit="10" x1="498" y1="579.316" x2="498" y2="585.316"/>
+	</g>
+</g>
+<path fill="#ADAFB2" stroke="#231F20" stroke-miterlimit="10" d="M547,159.33c0,9.657-5.373,17.486-12,17.486h-72
+	c-6.627,0-12-7.829-12-17.486v-16.028c0-9.657,5.373-17.486,12-17.486h72c6.627,0,12,7.829,12,17.486V159.33z"/>
+<path fill="#C7BEDC" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" d="M561.062,252.816c0,6.627-5.373,12-12,12h-99
+	c-6.627,0-12-5.373-12-12v-16c0-6.627,5.373-12,12-12h99c6.627,0,12,5.373,12,12V252.816z"/>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" x1="499.562" y1="264.816" x2="499.562" y2="315.195"/>
+		<g>
+			<path fill="#231F20" d="M499.562,314.39c2.09-2.09,6.223-3.086,9.09-3.168c-3.85,2.865-7.207,6.589-9.09,11.094
+				c-1.803-4.505-5.363-8.064-9.09-11.094C493.543,311.468,497.27,312.218,499.562,314.39z"/>
+		</g>
+	</g>
+</g>
+<path fill="#C7BEDC" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" d="M375.406,252.816c0,6.627-5.373,12-12,12h-99
+	c-6.627,0-12-5.373-12-12v-16c0-6.627,5.373-12,12-12h99c6.627,0,12,5.373,12,12V252.816z"/>
+<path fill="#C7BEDC" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" d="M189.75,252.816c0,6.627-5.373,12-12,12h-99
+	c-6.627,0-12-5.373-12-12v-16c0-6.627,5.373-12,12-12h99c6.627,0,12,5.373,12,12V252.816z"/>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" x1="435.421" y1="244.795" x2="385.042" y2="244.832"/>
+		<g>
+			<path fill="#231F20" d="M385.847,244.831c2.092,2.088,3.09,6.22,3.175,9.087c-2.868-3.848-6.595-7.202-11.101-9.082
+				c4.504-1.806,8.061-5.369,11.087-9.098C388.765,238.808,388.017,242.536,385.847,244.831z"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" x1="249.406" y1="244.775" x2="199.027" y2="244.812"/>
+		<g>
+			<path fill="#231F20" d="M199.832,244.81c2.092,2.088,3.09,6.221,3.175,9.088c-2.868-3.848-6.595-7.203-11.101-9.082
+				c4.504-1.807,8.061-5.369,11.087-9.098C202.75,238.789,202.002,242.515,199.832,244.81z"/>
+		</g>
+	</g>
+</g>
+<text transform="matrix(1 0 0 1 472.7559 249.8159)" font-family="'MyriadPro-Regular'" font-size="21">6e538</text>
+<text transform="matrix(1 0 0 1 286.7559 249.8159)" font-family="'MyriadPro-Regular'" font-size="21">31dba</text>
+<text transform="matrix(1 0 0 1 101.25 249.8159)" font-family="'MyriadPro-Regular'" font-size="21">bc07e</text>
+<path fill="#FDCC9A" stroke="#FBBF9C" stroke-miterlimit="10" d="M547,178.816c0,6.627-5.373,12-12,12h-72c-6.627,0-12-5.373-12-12
+	v-11c0-6.627,5.373-12,12-12h72c6.627,0,12,5.373,12,12V178.816z"/>
+<text transform="matrix(1 0 0 1 468.5 180.8159)" font-family="'MyriadPro-Regular'" font-size="21">Master</text>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" x1="499.562" y1="192.566" x2="499.562" y2="214.195"/>
+		<g>
+			<path fill="#231F20" d="M499.562,213.39c2.09-2.09,6.223-3.086,9.09-3.168c-3.85,2.865-7.207,6.589-9.09,11.094
+				c-1.803-4.505-5.363-8.064-9.09-11.094C493.543,210.468,497.27,211.218,499.562,213.39z"/>
+		</g>
+	</g>
+</g>
+<text transform="matrix(1 0 0 1 472.7559 148.8159)" font-family="'MyriadPro-Regular'" font-size="21">HEAD</text>
+<rect x="101.25" y="492.316" fill="#7BD1EA" stroke="#71C8F1" stroke-width="2" stroke-miterlimit="10" width="198.875" height="28.434"/>
+<text transform="matrix(1 0 0 1 152.6113 511.5332)" font-family="'LucidaConsole'" font-size="18">git diff</text>
+</svg>
