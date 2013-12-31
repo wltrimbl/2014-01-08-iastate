@@ -14,7 +14,6 @@ title: ISU Bootcamp Git Tutorial
 4. Branching and Merging ([slides](http://mollygibson.github.io/2014-01-08-iastate/lessons/swc-git/slides/03-Branching/03-Branching.pdf)) 
    * [Exercise 5: Branch and Merge](#branch-merge)
 5. Extras
-   * [Vocabulary](#vocabulary)
    * [Resources](#resources)
   
 ---   
@@ -134,18 +133,18 @@ This is a great interactive [Git cheatsheet](http://ndpsoftware.com/git-cheatshe
 
 [top](#top)
 
----
-
-### <a name="vocabulary"></a> Vocabulary
-
-[top](#top)
 
 ---
 
-###<a name="resources"></a> Resources
+###<a name="resources"></a><font color='blue'>Resources for Learning Git</font>
 
+1. Git 
+   * [Interactive Git Cheatsheet](http://ndpsoftware.com/git-cheatsheet.html)
+   * [Git Documentation](http://git-scm.com/doc)
 1. Branching
-   * [An interactive demo for learning branching with Git](http://pcottle.github.io/learnGitBranop](#top)
+   * [An interactive demo for learning branching with Git](http://pcottle.github.io/learnGitBranching/)
+2. SSH Keys
+   * [A Github tutorial for setting up SSH Keys](https://help.github.com/articles/generating-ssh-keys)
 
 [top](#top)
 
