@@ -3,22 +3,26 @@ layout: lesson
 root: ../..
 title: ISU Bootcamp Git Tutorial
 ---
-## Outline
+## <a name="top"></a>Outline
 
 1. Git Inroduction and Working Locally ([slides](http://mollygibson.github.io/2014-01-08-iastate/lessons/swc-git/slides/01-Introduction/01-GitIntroduction.pdf))
    * [Exercise 1: Download and Install Git](#install) 
    * [Exercise 2: Configure Git and Initialize Repository](#configure-git-and-initialize-repository)
    * [Exercise 3: Local Git Workflow](#local-git-workflow)
-3. Working with Github (slides)
-   * [Exercise 4: Collaborate on Github Project](#collaborate-on-github)
-4. Branching and Merging (slides) 
+3. Working with Github ([slides](http://mollygibson.github.io/2014-01-08-iastate/lessons/swc-git/slides/02-Github/02-Github.pdf))
+   * [Exercise 4: Collaborate on Github Project](#collaborate-on-github)     
+4. Branching and Merging ([slides](http://mollygibson.github.io/2014-01-08-iastate/lessons/swc-git/slides/03-Branching/03-Branching.pdf)) 
    * [Exercise 5: Branch and Merge](#branch-merge)
+5. Extras
+   * [Vocabulary](#vocabulary)
+   * [Resources](#resources)
+  
+---   
+   
+### <a name="install"></a><font color='red'>Exercise 1: Download and Install Git</font>
 
-Resources
+Please download and install Git before the tutorial today. 
 
-Vocabulary
-
-### <a name="install"></a>Exercise 1: Download and Install Git
 #### Windows
 Install [Git Bash](http://msysgit.github.io/). This give you Bash as well as Git.
 #### MacOSX
@@ -35,9 +39,10 @@ If you're on Fedora, you can use yum:
 ```
 $ yum install git-core
 ```
+[top](#top)
 
 ---
-### <a name="configure-git-and-initialize-repository"></a>Exercise 2: Configure Git and Initialize Repository
+### <a name="configure-git-and-initialize-repository"></a><font color='red'>Exercise 2: Configure Git and Initialize Repository</font>
 
 #### Configure Git
 The first time we use Git on a new machine, we need to configure a few things:
@@ -89,11 +94,11 @@ $ ls -a
 
 This directory stores information about our project in this directory. If you ever delete it, you will lose the history of your project. 
 
+[top](#top)
+
 ---
-### <a name="local-git-workflow"></a> Exercise 3: Working Locally with Git 
+### <a name="local-git-workflow"></a> <font color='red'>Exercise 3: Working Locally with Git</font>
 
-
-Remember the git file workflow! 
 
 This is a great interactive [Git cheatsheet](http://ndpsoftware.com/git-cheatsheet.html) to figure out what commands to use for what you want. <b>It will be overwhelming right now! Stick to the <i>workspace</i>, <i>index</i>, and <i>local repository</i> (we will talk about the upstream repository soon)!</b> 
 
@@ -112,19 +117,37 @@ This is a great interactive [Git cheatsheet](http://ndpsoftware.com/git-cheatshe
 12. Remove this file using git rm (but don't commit it).
 13. Try cancelling those changes. What's happening?
 
+[top](#top)
+
 ---
-### <a name="collaborate-on-github"></a> Exercise 4: Collaborate on Github
+### <a name="collaborate-on-github"></a> <font color='red'>Exercise 4: Work with a Remote Repository</font>
 
 1. Go to github.com and create an account. 
 
 
+[top](#top)
+
 ---
-### <a name="branch-merge"></a> Exercise 5: Branch and Merge
+### <a name="branch-merge"></a> <font color='red'>Exercise 5: Collaborate on Github</font>
 
 
 
+[top](#top)
 
+---
 
+### <a name="vocabulary"></a> Vocabulary
 
+[top](#top)
 
+---
+
+###<a name="resources"></a> Resources
+
+1. Branching
+   * [An interactive demo for learning branching with Git](http://pcottle.github.io/learnGitBranop](#top)
+
+[top](#top)
+
+---
 
