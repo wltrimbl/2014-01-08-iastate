@@ -9,10 +9,10 @@ title: ISU Bootcamp R Tutorial
 1. [R Basics](#basics)
 2. [Data Structures and Basic Use](#datastructures)
 3. [Control Structures and Functions](#controlstructures)
-   [Challenge Exercises](#challenge1)
+	* [Challenge Exercises 1](#challenge1)
 4. [Split-Apply-Combine (plyr)](#sac)
 5. [Plotting (ggplot)](#plotting)
-   [Challenge Exercises](#challenge2)
+   * [Challenge Exercises 2](#challenge2)
 6. [Extras](#Extras)
 	
 <i>Vince Melfi's [Introduction to R tutorial](IntroR.pdf) from CSTAT workshop in 2011 was used in the creation of this tutorial.</i>
@@ -24,6 +24,10 @@ title: ISU Bootcamp R Tutorial
 ####Installing R
 
 Before we start this tutorial, please make sure to install R on your local machines. 
+
+[Download R](http://cran.rstudio.com/) from the Comprehensive R Archive Network (CRAN) and install following instructions. 
+
+We will also be using an R IDE (integrated development environment) called RStudio. To install RStudio, [download the installer](http://www.rstudio.com/ide/download/desktop) recommended for your machine. 
 
 ####Getting Help with R
 
