@@ -721,9 +721,10 @@ The funciton `write.table()` is the export counterpart to `read.table()`. For ex
 
 This will write the data frame `img_genomes` to the files `img_genomes.txt` and fields will be separated by `"\t"`. The last argument is important if the rows for your data frame are not named, the default for `rows.names = T`.
 
+[top](#top)
+
 ---
 
-[top](#top)
 ###<a name="controlstructures"></a><font color='blue'>3. Control Structures and Functions</font>
 
 ####Control Structures
@@ -848,6 +849,7 @@ We can now use this piece of code over and over again by just calling the funcit
 [1] 4113.335
 ```
 [top](#top)
+
 ---
 ###<a name="challenge1"></a><font color='red'>Challenge Exercises</font>
 
