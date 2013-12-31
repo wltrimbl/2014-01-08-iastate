@@ -6,24 +6,24 @@ title: ISU Bootcamp R Tutorial
 
 ## Outline
 
-1. R Basics
-2. Data Structures and Basic Use
-3. Control Structures and Functions
+1. [R Basics](#basics)
+2. [Data Structures and Basic Use](#datastructures)
+3. [Control Structures and Functions](#controlstructures)
 
-   Challenge Exercises
+   [Challenge Exercises](#challenge1)
       
-4. Split-Apply-Combine (plyr)
-5. Plotting (ggplot)
+4. [Split-Apply-Combine (plyr)](#sac)
+5. [Plotting (ggplot)](#plotting)
 	
-   Challenge Exercises
+   [Challenge Exercises](#challenge2)
 	
-6. Extras
+6. [Extras](#Extras)
 	
-<i>Vince Melfi's Introduction to R tutorial from CSTAT workshop in 2011 was used in the creation of this tutorial.</i>
+<i>Vince Melfi's [Introduction to R tutorial]("IntroR.pdf") from CSTAT workshop in 2011 was used in the creation of this tutorial.</i>
 
 ---
 
-###<font color='blue'>1. R Basics</font>
+###<a name="basics"></a><font color='blue'>1. R Basics</font>
 
 ####Installing R
 
@@ -98,7 +98,7 @@ package ‘vegan’ was built under R version 2.15.3
 
 ---
 
-###<font color='blue'>2. Data Structures and Basic Use</font>
+###<a name="datastructures"></a><font color='blue'>2. Data Structures and Basic Use</font>
 
 Throughout the tutorial today, we will be using a metadata of microbial  genomes
 from the [Integrated Microbial Genomes (IMG)](http://img.jgi.doe.gov/) database. We will start of a small subset of this data, including the phylum, genome size, and gene count shown below:
@@ -723,7 +723,7 @@ This will write the data frame `img_genomes` to the files `img_genomes.txt` and 
 
 ---
 
-###<font color='blue'>3. Control Structures and Functions</font>
+###<a name="controlstructures"></a><font color='blue'>3. Control Structures and Functions</font>
 
 ####Control Structures
 
@@ -848,7 +848,7 @@ We can now use this piece of code over and over again by just calling the funcit
 ```
 
 ---
-### <font color='red'>Challenge Exercises</font>
+###<a name="challenge1"></a><font color='red'>Challenge Exercises</font>
 
 #### Exercise 1. 
 1.1 Open R and examine your current working directory using `getwd()` and set your working directory to where you would like to work for today's exercises using `setwd()`.
@@ -897,19 +897,22 @@ Use the function you wrote in exercise 3 to determine which phyla has the highes
 
 ---
 
-
-###<font color='blue'>4. Split-Apply-Combine (plyr)</font>
-
----
-
-###<font color='blue'>5. Plotting (ggplot)</font>
-
----
-### <font color='red'>Challenge Exercises</font>
+#BREAK
 
 ---
 
-###<font color='blue'>6. Extras</font>
+###<a name="sac"></a><font color='blue'>4. Split-Apply-Combine (plyr)</font>
+
+---
+
+###<a name="plotting"></a><font color='blue'>5. Plotting (ggplot)</font>
+
+---
+###<a name="challenge2"></a><font color='red'>Challenge Exercises</font>
+
+---
+
+###<a name="extras"></a><font color='blue'>6. Extras</font>
 
 #### Statistical Analysis
 
