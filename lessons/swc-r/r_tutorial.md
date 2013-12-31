@@ -57,7 +57,7 @@ Of these, some may be loaded for use, and others may not. The `search()` command
 lists those packages that are <i>loaded</i>. Output of these commands will vary depending
 on the installation.
 
-To install a package, use the `install.packages()` function:
+To install a package, use the `install.packages()` function (this will likely ask you for a CRAN mirror the first time downloading, just pick one):
 
 ```
 > install.packages("vegan")
@@ -74,13 +74,14 @@ The downloaded binary packages are in
 	/var/folders/_x/wbqc14lj1x7d6602h5nxr55m0000gn/T//RtmprP5Wvc/downloaded_packages
 ```
 
-To load a package, use the `library()` function:
-
 ```
 > search()
  [1] ".GlobalEnv"        "tools:rstudio"     "package:stats"     "package:graphics"  "package:grDevices" "package:utils"     "package:datasets"  "package:methods"  
  [9] "Autoloads"         "package:base" 
 ```
+
+To load a package, use the `library()` function:
+
 ```
 > library("vegan")
 Loading required package: permute
@@ -100,8 +101,7 @@ package ‘vegan’ was built under R version 2.15.3
 ###<font color='blue'>2. Data Structures and Basic Use</font>
 
 Throughout the tutorial today, we will be using a metadata of microbial  genomes
-from the [Integrated Microbial Genomes (IMG)](http://img.jgi.doe.gov/) database. We will start of a small subset of this data, including the phylum, genome size, and gene 
-count shown below:
+from the [Integrated Microbial Genomes (IMG)](http://img.jgi.doe.gov/) database. We will start of a small subset of this data, including the phylum, genome size, and gene count shown below:
 
 
 | IMG_ID    | Phylum              | Genome_Size | Gene_Count |
@@ -875,7 +875,7 @@ Create a new vector from the `GC_Percent` column named `all_gc_percent`.
 
 2.2 Create a new matrix of all the genomes that has two columns `Genome_Size` and `GC_Percent` named `genome_content_m`.
 
-Remember - use the `c()` and `matrix()` functions!
+Hint: Remember - use the `c()` and `matrix()` functions!
 
 2.3 Create a data frame of all the genomes that has two columns `Genome_Size` and `GC_Percent` named `genome_content_df`.
 
@@ -885,7 +885,7 @@ What would be a faster way to do this that does not require creating two vectors
 
 3.1 Write a function called `average_phyla_16S()` that calculates the average number of 16S rRNA genes for a particular phyla that takes in the microbial_genomes data frame and a phyla as arguments and returns the average. 
 
-Remember how `mean()` handles missing data (-1 == missing for our purposes)! 
+Hint: Remember how `mean()` handles missing data (-1 == missing for our purposes)! 
 
 Hint: the `ifelse()` function might be useful. 
 
