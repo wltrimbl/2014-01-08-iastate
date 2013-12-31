@@ -79,10 +79,8 @@
 	C366.561,456.248,372.514,464.42,372.514,474.5L372.514,474.5z"/>
 <text transform="matrix(1 0 0 1 290.6597 481.5)" font-family="'MyriadPro-Regular'" font-size="21">file.txt</text>
 <text transform="matrix(1 0 0 1 249.9961 481.5)" font-family="'MyriadPro-It'" font-size="14">v1</text>
-<path fill="#ADAFB2" stroke="#231F20" stroke-miterlimit="10" d="M550.105,154.014c0,9.657-5.373,17.486-12,17.486h-72
-	c-6.627,0-12-7.829-12-17.486v-16.028c0-9.657,5.373-17.486,12-17.486h72c6.627,0,12,7.829,12,17.486V154.014z"/>
-<path fill="#FDCC9A" stroke="#FBBF9C" stroke-miterlimit="10" d="M550.105,173c0,6.627-5.373,12-12,12h-72c-6.627,0-12-5.373-12-12
-	v-11c0-6.628,5.373-12,12-12h72c6.627,0,12,5.372,12,12V173z"/>
+<path fill="#FDCC9A" stroke="#FBBF9C" stroke-miterlimit="10" d="M550.105,173c0,6.627-5.373,12-12,12h-72c-6.628,0-12-5.373-12-12
+	v-11c0-6.628,5.372-12,12-12h72c6.627,0,12,5.372,12,12V173z"/>
 <path fill="#C7BEDC" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" d="M564.168,247.5c0,6.627-5.373,12-12,12h-99
 	c-6.627,0-12-5.373-12-12v-16c0-6.627,5.373-12,12-12h99c6.627,0,12,5.373,12,12V247.5z"/>
 <g>
@@ -106,5 +104,17 @@
 		</g>
 	</g>
 </g>
-<text transform="matrix(1 0 0 1 475.8613 143.5)" font-family="'MyriadPro-Regular'" font-size="21">HEAD</text>
+<path fill="#ADAFB2" stroke="#231F20" stroke-miterlimit="10" d="M550.105,109.357c0,6.154-5.373,11.143-12,11.143h-72
+	c-6.627,0-12-4.989-12-11.143V99.143c0-6.154,5.373-11.143,12-11.143h72c6.627,0,12,4.989,12,11.143V109.357z"/>
+<text transform="matrix(1 0 0 1 475.8613 111)" font-family="'MyriadPro-Regular'" font-size="21">HEAD</text>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" x1="503.887" y1="121.125" x2="503.887" y2="142.754"/>
+		<g>
+			<path fill="#231F20" d="M503.887,141.949c2.09-2.09,6.223-3.086,9.09-3.168c-3.85,2.865-7.207,6.589-9.09,11.094
+				c-1.804-4.505-5.363-8.064-9.09-11.094C497.867,139.027,501.594,139.777,503.887,141.949z"/>
+		</g>
+	</g>
+</g>
 </svg>

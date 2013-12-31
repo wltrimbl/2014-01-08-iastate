@@ -63,8 +63,6 @@
 	C169.311,473.748,175.264,481.92,175.264,492L175.264,492z"/>
 <text transform="matrix(1 0 0 1 91.9097 499)" font-family="'MyriadPro-Regular'" font-size="21">file.txt</text>
 <text transform="matrix(1 0 0 1 51.2461 499)" font-family="'MyriadPro-It'" font-size="14">v1</text>
-<path fill="#ADAFB2" stroke="#231F20" stroke-miterlimit="10" d="M552.977,169.014c0,9.657-5.373,17.486-12,17.486h-72
-	c-6.627,0-12-7.829-12-17.486v-16.028c0-9.657,5.373-17.486,12-17.486h72c6.627,0,12,7.829,12,17.486V169.014z"/>
 <path fill="#FDCC9A" stroke="#FBBF9C" stroke-miterlimit="10" d="M552.977,188c0,6.627-5.373,12-12,12h-72c-6.627,0-12-5.373-12-12
 	v-11c0-6.628,5.373-12,12-12h72c6.627,0,12,5.372,12,12V188z"/>
 <path fill="#C7BEDC" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" d="M567.039,262.5c0,6.627-5.373,12-12,12h-99
@@ -90,5 +88,17 @@
 		</g>
 	</g>
 </g>
-<text transform="matrix(1 0 0 1 478.7324 158.5)" font-family="'MyriadPro-Regular'" font-size="21">HEAD</text>
+<path fill="#ADAFB2" stroke="#231F20" stroke-miterlimit="10" d="M552.875,124.482c0,6.154-5.373,11.143-12,11.143h-72
+	c-6.627,0-12-4.989-12-11.143v-10.214c0-6.154,5.373-11.143,12-11.143h72c6.627,0,12,4.989,12,11.143V124.482z"/>
+<text transform="matrix(1 0 0 1 478.6309 126.125)" font-family="'MyriadPro-Regular'" font-size="21">HEAD</text>
+<g>
+	<g>
+		
+			<line fill="none" stroke="#231F20" stroke-width="2" stroke-miterlimit="10" x1="506.656" y1="136.25" x2="506.656" y2="157.879"/>
+		<g>
+			<path fill="#231F20" d="M506.656,157.074c2.09-2.09,6.223-3.086,9.09-3.168c-3.85,2.865-7.207,6.589-9.09,11.094
+				c-1.804-4.505-5.363-8.064-9.09-11.094C500.637,154.152,504.363,154.902,506.656,157.074z"/>
+		</g>
+	</g>
+</g>
 </svg>
