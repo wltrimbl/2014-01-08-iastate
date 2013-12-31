@@ -29,12 +29,15 @@ We have been using the \texttt{master} branch.
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Intro to Branching}
 We can create a new branch and it will add a new pointer to the current commit:
 \begin{center}
 \scalebox{0.7}{\includegraphics{../imgs/branch2.png}}
 
+\begin{verbatim}
+                   git branch test
+\end{verbatim}
 \end{center}
 \end{frame}
 
@@ -47,6 +50,20 @@ How does \texttt{Git} know which branch you are currently on?
 \end{center}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Intro to Branching}
+You can change the current branch by using \texttt{git checkout}:
+\begin{center}
+\scalebox{0.6}{\includegraphics{../imgs/branch3-5.png}}
+
+\begin{verbatim}
+                   git checkout test
+\end{verbatim}
+\end{center}
+
+\end{frame}
+
+
 \begin{frame}
 \frametitle{Intro to Branching}
 If you add commits on both branches, the directories can diverge:
@@ -56,13 +73,40 @@ If you add commits on both branches, the directories can diverge:
 \end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Intro to Branching}
 Eventually, you might want to merge your changes on your branch back into the master development branch:
 \begin{center}
-\scalebox{0.5}{\includegraphics{../imgs/branch4.png}}
-
+\scalebox{0.45}{\includegraphics{../imgs/branch5.png}}
+\begin{verbatim}
+                   git merge test
+\end{verbatim}
 \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Resolving Conflicts}
+Inevitably, you will get this error at some point when merging:
+\begin{verbatim}
+$ git merge test
+Auto-merged file1.txt
+CONFLICT (content): Merge conflict in file1.txt
+Automatic merge failed; fix conflicts and then 
+commit the result.
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Resolving Conflicts}
+This has now been put in the conflicting file:
+\begin{verbatim}
+<<<<<<< HEAD:file1.txt
+This is in the master branch.
+=======
+This is in the test branch.
+>>>>>>> test:file1.txt
+\end{verbatim}\pause
+\textit{Let's see how you resolve a merge conflict.}
 \end{frame}
 
 
@@ -88,13 +132,6 @@ Usually, there are a few main types of branches:
 \end{enumerate} 
 \end{frame}
 
-\begin{frame}
-\frametitle{Now, how do we actually do this?}
-\end{frame}
-
-\begin{frame}
-\frametitle{Resolving Conflicts}
-\end{frame}
 
 \begin{frame}
 \frametitle{Your Turn}
