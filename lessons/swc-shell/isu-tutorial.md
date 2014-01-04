@@ -23,7 +23,7 @@ with a keyboard instead of controlling graphical user interfaces
 
 Use a browser to open the tutorial on github, located at:
 
-    https://github.com/adina/2013-09-04-uiowa
+    https://github.com/adina/2014-01-08-iastate
 
 Click on the directory named `day1.shell`.
 
@@ -62,7 +62,7 @@ We will spend most of our time learning about the basics of the shell by manipul
 the data for this test, you will need internet access. Just enter the
 command:
 
-    git clone https://github.com/adina/2013-09-04-uiowa
+    git clone -b R-workshop https://github.com/adina/2014-01-08-iastate
 
 Followed by:
 
@@ -139,11 +139,11 @@ you will see that `testfile` is gone.
 
 **Changing Directories**
 
-Now, let's move to a different directory.  Right now, we are in the "day1.shell" directory which is in the "2013-09-04-uiowa" directory.  You can see this with the command `pwd`.   The command `cd` (change
-directory) is used to move around. Let's move into the `~/2013-09-04-uiowa`
+Now, let's move to a different directory.  Right now, we are in the "day1.shell" directory which is in the "2014-01-08-iastate" directory.  You can see this with the command `pwd`.   The command `cd` (change
+directory) is used to move around. Let's move into the `~/2014-01-08-iastate`
 directory. Enter the following command:
 
-    cd ~/2013-09-04-uiowa
+    cd ~/2014-01-08-iastate
 
 Now use the `ls` command to see what is inside this directory. 
 This directory contains all of the material for this boot camp. Now
@@ -186,7 +186,7 @@ give `ls` the names of other directories to view. Navigate to the
 home directory if you are not already there. Then enter the
 command:
 
-    ls /home/2013-09-04-uiowa
+    ls /home/2014-01-08-iastate
 
 
 ## Saving time with shortcuts, wild cards, and tab completion
@@ -261,7 +261,7 @@ onto more advanced shell topics...
 
 **Wild cards**
 
-Navigate to the `~/2013-09-04-uiowa/day1.shell/data/THOMAS` directory. This
+Navigate to the `~/2014-01-08-iastate/day1.shell/data/THOMAS` directory. This
 directory contains our hearing test data for THOMAS. If we type `ls`,
 we will see that there are a bunch of files which are just four digit
 numbers. By default, `ls` lists all of the files in a given
@@ -304,7 +304,7 @@ navigating to a different directory.
 
 **Tab Completion**
 
-Navigate to the home directory (.../2013-09-04-uiowa). Typing out directory names can waste a
+Navigate to the home directory (.../2014-01-08-iastate). Typing out directory names can waste a
 lot of time. When you start typing out the name of a directory, then
 hit the tab key, the shell will try to fill in the rest of the
 directory name. For example, enter:
@@ -314,7 +314,7 @@ directory name. For example, enter:
 The shell will fill in the rest of the directory name for
 `day1.shell`. Now enter:
 
-    ls ~/2013-09-04-uiowa/day1.shell/e<tab><tab>
+    ls ~/2014-01-08-iastate/day1.shell/e<tab><tab>
 
 When you hit the first tab, nothing happens. The reason is that there
 are multiple directories in the home directory which start with
@@ -378,7 +378,7 @@ this directory. Now, try to run the program by entering:
     hello
 
 You should get an error saying that hello cannot be found. That is
-because the directory `.../2013-09-04-uiowa/day1.shell` is not in the
+because the directory `.../2014-01-08-iastate/day1.shell` is not in the
 `PATH`. You can run the `hello` program by entering:
 
     ./hello
@@ -388,7 +388,7 @@ directory. This tells the shell to run the `hello` program which is
 located right here. So, you can run any program by entering the path
 to that program. You can run `hello` equally well by specifying:
 
-    /home/swc/2013-09-04-uiowa/day1.shell/hello
+    /home/swc/2014-01-08-iastate/day1.shell/hello
 
 Or by entering:
 
@@ -419,12 +419,12 @@ is where the name comes from, `cat` is short for concatenate).
 * * * *
 **Short Exercises**
 
-1.  Print out the contents of the `~/2013-09-04-uiowa/day1.shell/dictionary.txt`
+1.  Print out the contents of the `~/2014-01-08-iastate/day1.shell/dictionary.txt`
     file. What does this file contain?
 
 2.  Without changing directories, (you should still be in `shell`),
     use one short command to print the contents of all of the files in
-    the `/home/swc/2013-09-04-uiowa/day1.shell/data/THOMAS` directory.
+    the `/home/swc/2014-01-08-iastate/day1.shell/data/THOMAS` directory.
 
 * * * *
 
@@ -432,7 +432,7 @@ is where the name comes from, `cat` is short for concatenate).
 be annoying to use. The program, `less`, is useful for this
 case. Enter the following command:
 
-    less ~/2013-09-04-uiowa/day1.shell/dictionary.txt
+    less ~/2014-01-08-iastate/day1.shell/dictionary.txt
 
 `less` opens the file, and lets you navigate through it. The commands
 are identical to the `man` program. Use "space" to go forward and hit
@@ -455,7 +455,7 @@ documentation using "/" as well!
 ## Redirection
 
 Let's turn to the experimental data from the hearing tests that we
-began with. This data is located in the `~/2013-09-04-uiowa/day1.shell/data`
+began with. This data is located in the `~/2014-01-08-iastate/day1.shell/data`
 directory. Each subdirectory corresponds to a particular participant
 in the study. Navigate to the `Bert` subdirectory in `data`.  There
 are a bunch of text files which contain experimental data
@@ -482,7 +482,7 @@ exists.
 Use `>>`, to append the contents of all of the files which contain the
 number 4 in the directory:
 
-    ~/2013-09-04-uiowa/day1.shell/data/gerdal
+    ~/2014-01-08-iastate/day1.shell/data/gerdal
 
 to the existing `all_data` file. Thus, when you are done `all_data`
 should contain all of the experiment data from Bert and any
@@ -651,7 +651,7 @@ name to the file, then sort it and make a new file called Sorted.
 
 * * * *
 
-Let's navigate back to `~/2013-09-04-uiowa/day1.shell/data`. Enter the following command:
+Let's navigate back to `~/2014-01-08-iastate/day1.shell/data`. Enter the following command:
 
     wc Bert/* | sort -k 3 -n
 
