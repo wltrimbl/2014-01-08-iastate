@@ -106,18 +106,6 @@ less time from the start is wrongly directed attention.
 comfortable writing these whenever you want to save or otherwise document or
 repeat your actions
 * Use scripts to explore new ideas, they are easy to write and throw away
-* **Don't repeat commands into your REPL, save them to a script**
-
-## Refactor commonly used blocks of code into **functions**
-
-* Eventually, you will find that your scripts have a lot of repeated code,
-or that you are spending a lot of time adjusting parameters at the top of
-the file
-* Refactor out repeated code into **function calls** in your scripts and
-implement the **function** either in the same file or a separate one
-* Be comfortable with the calling and return syntax of your programming language
-environment, whether it is bash or Python or R
-* **Don't repeat code in scripts, refactor them to functions**
 
 # Reduce Complexity
 
