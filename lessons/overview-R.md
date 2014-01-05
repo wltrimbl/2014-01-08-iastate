@@ -203,23 +203,4 @@ Ethan P. White, Greg Wilson, Paul Wilson
 
 Preprint: http://arxiv.org/abs/1210.0530
 
-*Good summary paper of many fundamental practices for working with and
-developing scientific software. This is a preprint, so expect some rough spots.*
-
-# Web References
-
-## What Every Computer Scientist Should Know About Floating-Point Arithmetic
-David Golberg
-
-Web article: http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
-
-*Introduction to the IEEE floating-point standard, its implications, and many of
-the common pitfalls when using floating-point numbers in scientific computing*
-
-## Science Code Manifesto
-
-http://sciencecodemanifesto.org
-
-*Publicly signed commitment to clear licensing and curation of software
-associated with research publications.*
 
