@@ -174,10 +174,6 @@ it
 
 # References and Further Reading
 
-# Books
-
-# Research Literature
-
 ## Programming Languages for Scientific Computing
 Matthew G. Knepley
 
