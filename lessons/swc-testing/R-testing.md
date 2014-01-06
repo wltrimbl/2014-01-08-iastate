@@ -4,43 +4,6 @@ root: ../..
 title: ISU Bootcamp Computing Practices Tutorial
 ---
 
-# An aside - how to write and execute an R script on the command line
-
-An R script can be written in any text editor.  For example, here is a simple R script that you can write and save as test.R.
-
-    #!/usr/bin/Rscript
-
-    cat("Hello world", sep="\n")
-
-To run this script on the command line, you could type:
-
-    Rscript test.R
-
-And you should see the output as:
-
-    Hello world
-
-Sometimes you want to be able to pass values to an R script that are manipulated by your program.  To do this, we could use the following and save it in a script called test-args.R:
-
-    #!/bin/usr/Rscript
-
-    args <- commandArgs(TRUE) #tells R your going to be passing arguments
-    cat(args[1], sep="\n")
-    cat(args[2], sep="\n")
-    cat(args[3], sep="\n")
-
-Then when we execute this script with arguments passed, like so:
-
-    Rscript test-args.R one two three
-
-Or...
-
-    Rscript test-args.R 1 2 3
-
-It will return as an output the first three arguments.
-
-We're going to be learning how to execute functions and tests in R using this trick next.
-
 # Testing (Not just your own code) & Debugging (Mostly your own code)
 
 ## Why do we test?
@@ -62,16 +25,14 @@ Our testing system will be a divide function.
 
 ## How do we test?
 
-Or, how do we select small sets of data to test with?
+Or, how do we select small sets of data to test with?  This is really important.  At minimum, I'll test my scripts or functions with a small dataset which I know the output.
 
 Domain knowledge
 * I know these types of inputs are common
 * I know these types of input are important
 * I know these types of inputs could cause problems
 
-EXERCISE: Write a script containing a function (in R) called divideBy with the parameters dividend and divisor. Use the trick above so that you can accept the divident and divisor as arguments. Use the cat function to display the answer of the function.
-
-Given that we're working with the divide operation, what are some inputs that could cause problems?
+EXERCISE: In R, write a function called divideBy with the parameters dividend and divisor. Given that we're working with the divide operation, what are some inputs that could cause problems?  Try these out with your function.  
 
 ## RUnit
 
@@ -81,13 +42,12 @@ RUnit is a package in R that can help you test your scripts.  To install it, sta
 
 This package has built in functions which can test the function that you previously wrote.  To test your divideBy function, you want to first identify test cases for your function.  Let's just do a few examples.
 
-   test_divideBy <- function() {
-       checkEquals(divideBy(4, 2), 2)
-       checkTrue(is.na(divideBy(4, 0)))
-       checkEqualsNumeric(divideBy(4, 1.2345), 3.24, tolerance=1.0e-4)
-   }
+    test_divideBy <- function() {
+        checkEquals(divideBy(4, 2), 2)
+        checkTrue(is.na(divideBy(4, 0)))
+        checkEqualsNumeric(divideBy(4, 1.2345), 3.24, tolerance=1.0e-4)
+    }
 
-   test_divideBy
 
 Let's add this function to the end of our function like so in R:
 
@@ -123,5 +83,7 @@ And rerun, test_divideBy() and now we'll get this output indicating that our tes
 
    [1] TRUE
 
-If you are integrating this function in a part of a package you are writing to R, because you named this function with the prefix "test_...", it would get checked during the package install.  More information on this can be found here:  http://www.bioconductor.org/developers/unitTesting-guidelines/.
+If you are integrating this function in a part of a package you are writing to R, because you named this function with the prefix "test_...", it would get checked during the package install.  More information on this can be found here:  http://www.bioconductor.org/developers/unitTesting-guidelines/.  You can also imagine requiring that a test passed (e.g., with an if loop), requiring that test functions passed prior to proceeding in a script.
+
+
 
