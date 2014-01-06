@@ -10,27 +10,6 @@ Overview
 * Why is testing important
 * What are the different types of testing
 * How do we test
-* Aside: Python: Reading input from the user (or another program)
-
-## Aside: Python scripts
-* Made similar to the bash script we wrote yesterday
-* typically 
-* File containing python code (instead of bash command)
-* Can be run two different ways
-  ** python <my_script.py>
-*OR*
-  ** replace `#!/bin/bash` with `#!/usr/bin/python`
-  ** mark as executable with `chmod +x` command
-  ** run from the shell via ./my_script.py
-
-Exercise: hello world script
-
-```python
-
-print "Hello world"
-```
-
-make a script file named hello.py that prints "Hello world" and run it
 
 ## Why do we test?
 
