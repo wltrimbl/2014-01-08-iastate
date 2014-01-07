@@ -1,3 +1,9 @@
+---
+layout: lesson
+root: .
+title: "Testing: why, how, and how much. "
+--
+
 # Testing
 
 * * * * *
