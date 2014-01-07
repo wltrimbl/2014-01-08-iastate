@@ -770,6 +770,10 @@ A faster way to do this is to use the `xargs` command:
 
     find . -type f -print | xargs grep Volume
 
+Or if you want to do it like the "-exec" example before:
+
+    find . -type f -print | xargs -I {} grep Volume {}
+
 `find` generates a list of all the files we are interested in, 
 then we pipe them to `xargs`.  `xargs` takes the items given to it 
 and passes them as arguments to `grep`.  `xargs` generally only creates
