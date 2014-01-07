@@ -1,7 +1,7 @@
 % Software Carpentry - Overview
-  SESYNC 
+  Iowa State 
 % Software Carpentry Team
-% December 2013
+% January 2014
 
 ## Copy This Lecture!
 <br></br>
