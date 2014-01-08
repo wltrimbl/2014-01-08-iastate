@@ -14,6 +14,11 @@ A good cheatsheet but there are many out there
 
 http://chembytes.wdfiles.com/local--files/cheatsheets/linux4beginner.pdf
 
+Some good resources (for those without man pages on git bash):
+
+Man Pages:  http://unixhelp.ed.ac.uk/CGI/man-cgi
+Shell Literacy:  http://explainshell.com/explain?cmd=ls
+
 # What is the shell how do I access the shell?
 
 The *shell* is a program that presents a command line interface
