@@ -50,7 +50,7 @@ The first time we use Git on a new machine, we need to configure a few things:
 $ git config --global user.name "Your name goes here"
 $ git config --global user.email you@yourdomain.com
 $ git config --global core.editor vim
-$ git config color.ui auto
+$ git config --global color.ui auto
 ```
 
 Git commands are written `git verb`,
@@ -102,32 +102,34 @@ This directory stores information about our project in this directory. If you ev
 This is a great interactive [Git cheatsheet](http://ndpsoftware.com/git-cheatsheet.html) to figure out what commands to use for what you want. <b>It will be overwhelming right now! Stick to the <i>workspace</i>, <i>index</i>, and <i>local repository</i> (we will talk about the upstream repository soon)!</b> 
 
 
-1. Create an AUTHORS file, a TODO file, and a README file in the `swc_git_tutorial` directory you created in the last exercise.
-2. Add your name to the AUTHORS file and add it to the staging area.
+1. Create an AUTHORS.md file, a TODO.md file, and a README.md file in the `swc_git_tutorial` directory you created in the last exercise.
+   * Hint: Remember the `touch` command.
+   * `.md` is just markdown extension (makes later exercises easier)
+2. Add your name to the AUTHORS.md file and add it to the staging area.
 3. Check the status of the repository.
    * Notice that there are 'untracked' files in the directory. Remember, this means Git has not been told to keep track of them. 
 3. Commit your changes to the repository. Make sure to use an informative commit message!
-4. Add your email to the AUTHORS file. 
-5. Add the AUTHORS, TODO, and README files to the staging area. 
+4. Add your email to the AUTHORS.md file. 
+5. Add the AUTHORS.md, TODO.md, and README.md files to the staging area. 
 6. Check the status of the repository.
    * Notice that it specifies that files are new or modified from a previous version.
 6. Commit your changes to the repository. 
-7. Change the name of the AUTHORS file to CONTRIBUTORS.
+7. Change the name of the AUTHORS.md file to CONTRIBUTORS.
 8. Check the status of the repository.
-   * Git thinks you deleted AUTHORS and let's you know there is a new untracked file.
+   * If you changed the name outside if Git, Git thinks you deleted AUTHORS and let's you know there is a new untracked file.
    * In order to make sure Git keeps track of the changes to this file, we should rename the file in git using `git mv`. This works just like the `mv` command in the shell, but it also let's Git keep track of the move.
 9. Rename the AUTHORS file to CONTRIBUTORS using `git mv` command.
    * Note: You will have to first rename the CONTRIBUTORS file back to AUTHORS in your working directory. 
-10. Add your changes to the staging area and commit them to the repository.
-11. Add "1. Learn Git" to the TODO file. 
+10. Commit the name change to the repository.
+11. Add "1. Learn Git" to the TODO.md file. 
 12. Add the TODO file to the staging area and commit it.
-13. Add "2. Forget Git" to the TODO file.
-    * You realize you didn't actually want to change this file and want to revert it back to the last committed file. You can do this with the `git checkout` command.
-14. Use Git to discard your latest changes to the TODO file. 
-    * Hint: The status message will tell you how to discard your changes.
+13. Add "2. Forget Git" to the TODO.md file.
+    * Uh-oh, you realize you didn't actually want to change this file (you don't want to foget Git!) and want to revert it back to the staged file. 
+14. Use Git to discard your latest changes to the TODO.md file. 
+    * Hint: You can discard your changes with the `git checkout` command. The status message will tell you how to do this.
 11. Look at the change history in your repository using `git log`.
-12. How would you view the last change made to the TODO file? 
-
+12. How would you view the last change made to the TODO.md file? * Hint: `git diff`!
+13. What about the last change made to the AUTHORS.md file when you added your email?
 
 [top](#top)
 
@@ -164,13 +166,20 @@ For this exercise we will work in groups of four.
 5. Everyone add a file to the repository titled with their first name and a short sentence about themselves. 
 6. Add and commit the file to your repository.
 7. Push your file to your remote repository.
+  * Hint: `git push origin`
 8. Everyone that forked the original repository send pull requests.
 9. The member who made the original repository should merge all pull requests into the original repository.
 10. Everyone fetch all of the changes from the original repository and merge them into their local repository. 
-       * Note: You can also do a `git pull upstream master`. This will fetch and merge in one command. 
-11. 
+	* Hint: `git fetch upstream/master`, `git merge upstream/master` - how would you do this if you wanted to fetch a branch called 'fixes'? 
+    * Note: You can also do a `git pull upstream master`. This will fetch and merge in one command (as long as you stick with this naming convention). 
+11. Add one line to the `README.md` that says what their favorite thing about version control is so far.
+12. The group member that created the original repository should add, commit, and push this change to the remote repository. (Everyone else sit tight).
+13. All other members should now try to fetch and merge the upstream repository into their local repository.
+	* Did it go smoothly?
+ 	* What went wrong?
+	* How do you fix it? 
 
-
+Extra time? Check out this [cool interactive demo for learning branching with Git](http://pcottle.github.io/learnGitBranching/).
 
 [top](#top)
 
