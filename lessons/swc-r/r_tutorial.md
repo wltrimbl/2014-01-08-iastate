@@ -1050,9 +1050,17 @@ ggplot(data=gene_statistics)+geom_pointrange(aes(x=reorder(Phylum, mean_gene_cou
 ---
 ###<a name="challenge2"></a><font color='red'>Challenge Exercises</font>
 
-1. Write a function to calculate standard error, and then use ddply to calculate the standard error of gene counts for each phylum.  Check the output and discuss any differences/ strange results that you may generate.
-2. Generate a publication ready plot of average genome size across phyla with error bars using ddply and ggplot.
-3. From the microbial_genomes dataframe, generate a publication ready scatterplot showing the correlation of genome size (x) and gene count (y) and color points based on phyla. 
+#### Exercise 1.
+
+Write a function to calculate standard error, and then use ddply to calculate the standard error of gene counts for each phylum.  Check the output and discuss any differences/ strange results that you may generate.
+
+#### Exercise 2.
+
+Generate a publication ready bar chart plot of average genome size across phyla with error bars using ddply and ggplot.
+
+#### Exercise 3.
+
+From the microbial_genomes dataframe, generate a publication ready scatterplot showing the correlation of genome size (x) and gene count (y) and color points based on phyla. 
    * Hint:replace phylum with genome size in ggplot and add another argument, `color=…`, to the `aes()` of `geom_point()` (`geom_pointrange(aes(...,color=…)`)
 
 ---
