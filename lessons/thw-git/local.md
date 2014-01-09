@@ -53,14 +53,11 @@ Version Control System Tool Options
 ## git clone : we've seen git already
 Yesterday morning, after installing git, we asked everyone to run
 ```
-git clone http://github.com/USERNAME/YYYY-MM-DD-PLACE 
+git clone http://github.com/adina/2014-01-08-iastate
 ```
 This created a copy of the software carpentry repository materials on
-each of your hard drives yesterday morning.   If you did this yesterday,
-you don't need to to it again.
+each of your hard drives this morning.   
 
-*But*, last night, the instructors changed the content on github, so now
-the repositories on all our hard drives are out of date.
 
 ```
 cd
@@ -447,7 +444,7 @@ Step 3 : Merge the two branches into the core
 ## git clone : Copying a Repository
 
 Yesterday, you checked out a git type repository at
-https://github.com/USERNAME/YYYY-MM-DD-PLACE
+https://github.com/adina/2014-01-08-iastate.git 
 
 When you clone the Original repository, the one that is created on your
 local machine is a copy, and contains both the contents and the history.
@@ -457,46 +454,6 @@ can also update the original repository with your changes.
 
 We'll get to that soon, but for now, let's move on to a fairly
 easy-to-use system for managing repositories.
-
-### Exercise : Cloning Another Repository from GitHub
-
-Step 1 : Pick any repository you like. There are many cool projects
-hosted on github. Take a few minutes here, and pick a piece of code.
-
-Step 2 : Clone it. If you didn't find anything cool, you can chose the
-"instructional" Spoon-Knife repository:
-
-    $ cd
-    $ git clone git@github.com/octocat/Spoon-Knife.git
-    Cloning into Spoon-Knife...
-    remote: Counting objects: 24, done.
-    remote: Compressing objects: 100% (21/21), done.
-    remote: Total 24 (delta 7), reused 17 (delta 1)
-    Receiving objects: 100% (24/24), 74.36 KiB, done.
-    Resolving deltas: 100% (7/7), done.
-
-Step 3 : You should see many files download themselves onto your
-machine. Let's make sure it worked. Change directories to the source
-code and list the contents.
-
-    $ cd Spoon-Knife
-    $ ls 
-
-## git pull : Pulling updates from the Original Repository
-
-Updating your repository is like voting. You should update early and
-often especially if you intend to contribute back to the upstream
-repository and particularly before you make or commit any changes. This
-will ensure you're working with the most up-to-date version of the
-repository. Updating won't overwrite any changes you've made locally
-without asking, so don't get nervous. When in doubt, update.
-
-    $ git pull 
-    Already up-to-date.
-
-Since we just pulled the repository down, we will be up to date unless
-there has been a commit by someone else to the Original repository in
-the meantime.
 
 ## Resources
 
